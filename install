@@ -10,8 +10,9 @@ for i in "$DOTFILES_DIR"/dotfiles/*; do
   ln -sf "$i" ~/."$(basename "$i")"
 done
 
-mkdir -p ~/config
+mkdir -p ~/.config
 for i in "$DOTFILES_DIR"/config/*; do
   echo "Adding config $(basename "$i")..."
+  [ -d ~/.config/"$(basename "$i")" ] && rm -rf ~/.config/"$(basename "$i")"
   ln -sf "$i" ~/.config/"$(basename "$i")"
 done
