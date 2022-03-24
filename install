@@ -1,12 +1,17 @@
 #!/bin/bash
 
 if [ "$SPIN" ]; then
-  DOTFILES_DIR=~/dotfiles
-else
-  DOTFILES_DIR=~/src/github.com/campbel/dotfiles
-  for i in "$DOTFILES_DIR"/dotfiles/*; do
-    echo "Installing $(basename "$i")..."
-    ln -sf "$i" ~/."$(basename "$i")"
-  done
+  exit 0
 fi
 
+DOTFILES_DIR=~/src/github.com/campbel/dotfiles
+for i in "$DOTFILES_DIR"/dotfiles/*; do
+  echo "Installing .$(basename "$i")..."
+  ln -sf "$i" ~/."$(basename "$i")"
+done
+
+mkdir -p ~/config
+for i in "$DOTFILES_DIR"/config/*; do
+  echo "Adding config $(basename "$i")..."
+  ln -sf "$i" ~/.config/"$(basename "$i")"
+done
