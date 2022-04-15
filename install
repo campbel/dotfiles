@@ -4,8 +4,34 @@ if [ "$SPIN" ]; then
   exit 0
 fi
 
+if [[ -f $(which apt) ]]; then
+  echo "Installing tools via apt"
+  sudo apt update -y
+  sudo apt install bat \
+  build-essential \
+  procps \
+  curl \
+  file \
+  zip \
+  unzip \
+  fontconfig \
+  git -y
+
+  # Install fire font
+  unzip FiraCode.zip -d ~/.fonts
+  fc-cache -fv
+
+  # Install starship
+  sudo /bin/sh starship/install.sh -y
+fi
+
+if [[ -f $(which brew) ]]; then
+  echo "Installing tools via brew"
+fi
+
 DOTFILES_DIR=~/src/github.com/campbel/dotfiles
 for i in "$DOTFILES_DIR"/dotfiles/*; do
+  echo $i
   echo "Installing .$(basename "$i")..."
   ln -sf "$i" ~/."$(basename "$i")"
 done
