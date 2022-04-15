@@ -6,20 +6,11 @@ fi
 
 if [[ -f $(which apt) ]]; then
   echo "Installing tools via apt"
-  sudo apt update -y
-  sudo apt install bat \
-  build-essential \
-  procps \
+  sudo apt update -y && \
+  sudo apt install -y 
+  bat \
   curl \
-  file \
-  zip \
-  unzip \
-  fontconfig \
-  git -y
-
-  # Install fire font
-  unzip FiraCode.zip -d ~/.fonts
-  fc-cache -fv
+  git
 
   # Install starship
   sudo /bin/sh starship/install.sh -y
