@@ -14,7 +14,7 @@ esac
 
 echo -e "${BGreen}[Installing dotfiles]${NC}"
 DOTFILES_DIR=~/src/github.com/campbel/dotfiles
-if [ -e "SPIN" ]; then
+if [ "$SPIN" ]; then
     DOTFILES_DIR=~/dotfiles
 fi
 for i in "$DOTFILES_DIR"/dotfiles/*; do
