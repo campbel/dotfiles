@@ -4,21 +4,20 @@ command -v starship &> /dev/null && eval "$(starship init zsh)"
 [[ -x /opt/homebrew/bin/brew ]] && eval $(/opt/homebrew/bin/brew shellenv)
 [[ -x /opt/dev/dev.sh ]] && source /opt/dev/dev.sh
 [[ -x /opt/dev/sh/chruby/chruby.sh ]] && type chruby >/dev/null 2>&1 || chruby () { source /opt/dev/sh/chruby/chruby.sh; chruby "$@"; }
+[[ -d ~/.kube ]] && for file in ~/.kube/config*; do export KUBECONFIG="${KUBECONFIG}:${file}"; done
 
 export EDITOR="code -w"
 
 ###
 ## Aliases
 ###
-alias k='kubectl'
-alias sc='systemctl'
-alias jc='journalctl'
-command -v bat &> /dev/null && alias cat=bat
-command -v batcat &> /dev/null && alias cat=batcat
+command -v kubectl &> /dev/null &&    alias k=kubectl
+command -v systemctl &> /dev/null &&  alias sc=systemctl
+command -v journalctl &> /dev/null && alias jc=journalctl
+command -v bat &> /dev/null &&        alias cat=bat
+command -v batcat &> /dev/null &&     alias cat=batcat
 
 ###
 ## SHOPIFY
 ###
-export KUBECONFIG=${KUBECONFIG:+$KUBECONFIG:}/Users/campbel/.kube/config:/Users/campbel/.kube/config.shopify.cloudplatform
-for file in /Users/campbel/src/github.com/Shopify/cloudplatform/workflow-utils/*.bash; do source ${file}; done
-kubectl-short-aliases
+[[ -d ~/src/github.com/Shopify/cloudplatform/workflow-utils ]] && for file in ~/src/github.com/Shopify/cloudplatform/workflow-utils/*.bash; do source ${file}; done
