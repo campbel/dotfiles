@@ -2,9 +2,8 @@ autoload -U compinit; compinit
 
 command -v starship &> /dev/null && eval "$(starship init zsh)"
 [[ -x /opt/homebrew/bin/brew ]] && eval $(/opt/homebrew/bin/brew shellenv)
-
-[[ -f /opt/dev/dev.sh ]] && source /opt/dev/dev.sh
-[[ -f /opt/dev/sh/chruby/chruby.sh ]] && type chruby >/dev/null 2>&1 || chruby () { source /opt/dev/sh/chruby/chruby.sh; chruby "$@"; }
+[[ -x /opt/dev/dev.sh ]] && source /opt/dev/dev.sh
+[[ -x /opt/dev/sh/chruby/chruby.sh ]] && type chruby >/dev/null 2>&1 || chruby () { source /opt/dev/sh/chruby/chruby.sh; chruby "$@"; }
 
 export EDITOR="code -w"
 
