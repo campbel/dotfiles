@@ -5,10 +5,6 @@ BCyan='\033[1;36m'
 BGreen='\033[1;32m'       # Green
 BBlue='\033[1;34m'        # Blue
 
-if [ "$SPIN" ]; then
-  exit 0
-fi
-
 echo -e "${BCyan}[Installing packages${NC}]"
 case $( uname -s ) in
 Linux) /bin/sh setup_linux;;
