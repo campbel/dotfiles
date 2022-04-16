@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+echo "Setting up Linux system"
+
+sudo apt update -y
+
+sudo apt install -y 
+    bat \
+    curl \
+    git
+
+# Install starship
+sudo /bin/sh starship/install.sh -y

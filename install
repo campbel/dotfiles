@@ -1,35 +1,32 @@
-#!/bin/bash
+#!/usr/bin/env bash
+
+NC='\033[0m'
+BCyan='\033[1;36m'
+BGreen='\033[1;32m'       # Green
+BBlue='\033[1;34m'        # Blue
 
 if [ "$SPIN" ]; then
   exit 0
 fi
 
-if [[ -f $(which apt) ]]; then
-  echo "Installing tools via apt"
-  sudo apt update -y && \
-  sudo apt install -y 
-  bat \
-  curl \
-  git
+echo -e "${BCyan}[Installing packages${NC}]"
+case $( uname -s ) in
+Linux) /bin/sh setup_linux;;
+Darwin) /bin/sh setup_mac;;
+*)     echo other;;
+esac
 
-  # Install starship
-  sudo /bin/sh starship/install.sh -y
-fi
-
-if [[ -f $(which brew) ]]; then
-  echo "Installing tools via brew"
-fi
-
+echo -e "${BGreen}[Installing dotfiles]${NC}"
 DOTFILES_DIR=~/src/github.com/campbel/dotfiles
 for i in "$DOTFILES_DIR"/dotfiles/*; do
-  echo $i
-  echo "Installing .$(basename "$i")..."
+  echo -e ".$(basename "$i")"
   ln -sf "$i" ~/."$(basename "$i")"
 done
 
+echo -e "${BBlue}[Adding configs]${NC}"
 mkdir -p ~/.config
 for i in "$DOTFILES_DIR"/config/*; do
-  echo "Adding config $(basename "$i")..."
+  echo -e "$(basename "$i")"
   [ -d ~/.config/"$(basename "$i")" ] && rm -rf ~/.config/"$(basename "$i")"
   ln -sf "$i" ~/.config/"$(basename "$i")"
 done
