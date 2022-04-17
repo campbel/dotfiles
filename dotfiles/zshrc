@@ -14,11 +14,11 @@ export EDITOR="code -w"
 ###
 ## Aliases
 ###
-command -v kubectl &> /dev/null &&    alias k=kubectl
-command -v systemctl &> /dev/null &&  alias sc=systemctl
+command -v kubectl    &> /dev/null && alias k=kubectl
+command -v systemctl  &> /dev/null && alias sc=systemctl
 command -v journalctl &> /dev/null && alias jc=journalctl
-command -v bat &> /dev/null &&        alias cat=bat
-command -v batcat &> /dev/null &&     alias cat=batcat
+command -v bat        &> /dev/null && alias cat=bat
+command -v batcat     &> /dev/null && alias cat=batcat
 
 ###
 ## SHOPIFY
