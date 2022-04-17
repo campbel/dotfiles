@@ -2,6 +2,7 @@
 add_newline = false
 
 format = """
+$hostname\
 $kubernetes\
 $directory\
 $git_branch\
