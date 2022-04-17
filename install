@@ -12,6 +12,8 @@ Darwin) /bin/sh setup_mac;;
 *)     echo other;;
 esac
 
+git submodule init; git submodule update
+
 echo -e "${BGreen}[Installing dotfiles]${NC}"
 DOTFILES_DIR=~/src/github.com/campbel/dotfiles
 if [ "$SPIN" ]; then
