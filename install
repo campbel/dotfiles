@@ -19,6 +19,7 @@ if [ "$SPIN" ]; then
 fi
 for i in "$DOTFILES_DIR"/dotfiles/*; do
   echo -e ".$(basename "$i")"
+  [ -d ~/."$(basename "$i")" ] && rm -rf ~/."$(basename "$i")"
   ln -sf "$i" ~/."$(basename "$i")"
 done
 
