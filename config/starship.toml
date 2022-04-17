@@ -8,6 +8,7 @@ $directory\
 $git_branch\
 $line_break\
 $time\
+$cmd_duration\
 $character"""
 
 # Replace the "❯" symbol in the prompt with "➜"
