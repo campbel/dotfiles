@@ -16,6 +16,8 @@ export EDITOR="code -w"
 ## Aliases
 ###
 command -v kubectl    &> /dev/null && alias k=kubectl
+command -v kubens     &> /dev/null && alias kn=kubens
+command -v kubectx    &> /dev/null && alias kc=kubectx
 command -v systemctl  &> /dev/null && alias sc=systemctl
 command -v journalctl &> /dev/null && alias jc=journalctl
 command -v bat        &> /dev/null && alias cat=bat
