@@ -7,7 +7,12 @@ sudo apt update -y
 sudo apt install -y 
     bat \
     curl \
+    zsh \
     git
+
+sudo apt upgrade -y
+
+chsh -s /usr/bin/zsh
 
 # Install starship
 sudo /bin/sh starship/install.sh -y
