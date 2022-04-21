@@ -2,7 +2,7 @@
 
 echo "Setting up Linux system"
 
-if [ $SPIN ]; then
+if [ "$SPIN" ]; then
     sudo apt install -y \
         bat
 else
