@@ -27,3 +27,8 @@ command -v batcat     &> /dev/null && alias cat=batcat
 ## SHOPIFY
 ###
 [[ -d ~/src/github.com/Shopify/cloudplatform/workflow-utils ]] && for file in ~/src/github.com/Shopify/cloudplatform/workflow-utils/*.bash; do source ${file}; done
+
+if [ $SPIN ]; then
+    export SPIN_HISTFILE="~/.config/spin/config/zsh_history"
+    [[ -f /etc/zsh/zshrc.default.inc.zsh ]] && source /etc/zsh/zshrc.default.inc.zsh
+fi
