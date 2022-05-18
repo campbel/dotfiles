@@ -23,6 +23,11 @@ command -v journalctl &> /dev/null && alias jc=journalctl
 command -v bat        &> /dev/null && alias cat=bat
 command -v batcat     &> /dev/null && alias cat=batcat
 
+if [[ -d ~/.config/spin ]]; then
+    command -v kubectl &> /dev/null && alias kprod='kubectl --context "$(cat ~/.config/spin/spin.up.dev/cluster)" -n "$(cat ~/.config/spin/spin.up.dev/namespace)"'
+    command -v kubectl &> /dev/null && alias kdev='kubectl --context "$(cat ~/.config/spin/localhost/cluster)" -n "$(cat ~/.config/spin/localhost/namespace)"'
+fi
+
 ###
 ## SHOPIFY
 ###
@@ -32,3 +37,5 @@ if [ $SPIN ]; then
     export SPIN_HISTFILE="~/.config/spin/config/zsh_history"
     [[ -f /etc/zsh/zshrc.default.inc.zsh ]] && source /etc/zsh/zshrc.default.inc.zsh
 fi
+
+[[ -f /opt/dev/sh/chruby/chruby.sh ]] && type chruby >/dev/null 2>&1 || chruby () { source /opt/dev/sh/chruby/chruby.sh; chruby "$@"; }
