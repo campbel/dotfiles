@@ -6,7 +6,7 @@ command -v kubectl  &> /dev/null && source <(kubectl completion zsh)
 command -v spin     &> /dev/null && source <(spin completion)
 [[ -f /opt/dev/dev.sh ]] && source /opt/dev/dev.sh
 [[ -x /opt/dev/sh/chruby/chruby.sh ]] && type chruby >/dev/null 2>&1 || chruby () { source /opt/dev/sh/chruby/chruby.sh; chruby "$@"; }
-[[ -d ~/.kube ]] && for file in ~/.kube/*; do [[ $file = ~/.kube/config* ]] && echo ${file} && export KUBECONFIG="${KUBECONFIG}:${file}"; done
+[[ -d ~/.kube ]] && for file in ~/.kube/*; do [[ $file = ~/.kube/config* ]] && export KUBECONFIG="${KUBECONFIG}:${file}"; done
 [[ -f ~/.zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh ]] && source ~/.zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 [[ -f ~/.zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]] && source ~/.zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
