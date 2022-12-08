@@ -6,6 +6,6 @@ brew install \
     bat \
     curl \
     git \
-    iterm2 \
     zsh \
-    starship
+    starship \
+    iterm2
