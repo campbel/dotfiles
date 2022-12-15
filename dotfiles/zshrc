@@ -4,6 +4,7 @@ autoload -U compinit; compinit
 command -v starship &> /dev/null && eval   "$(starship init zsh)"
 command -v kubectl  &> /dev/null && source <(kubectl completion zsh)
 command -v spin     &> /dev/null && source <(spin completion)
+command -v tunnel   &> /dev/null && source <(tunnel completion zsh)
 [[ -f /opt/dev/dev.sh ]] && source /opt/dev/dev.sh
 [[ -x /opt/dev/sh/chruby/chruby.sh ]] && type chruby >/dev/null 2>&1 || chruby () { source /opt/dev/sh/chruby/chruby.sh; chruby "$@"; }
 [[ -d ~/.kube ]] && for file in ~/.kube/*; do [[ $file = ~/.kube/config* ]] && export KUBECONFIG="${KUBECONFIG}:${file}"; done
