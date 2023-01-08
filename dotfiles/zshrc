@@ -79,7 +79,32 @@ telling someone to do something. For example, \"Fix bug\" and not \"Fixed bug\"
 or \"Fixes bug.\" It should also be less than 70 characters long. 
 Include just the message, no labels or other text.
 
-Changes:
 $CHANGES
 " | ezgpt3 -tokens 70
+}
+
+fix() {
+    FILE=${1}
+
+    if [[ ! -f $FILE ]]; then
+        echo "File not found: $FILE"
+        return 1
+    fi
+
+    CONTENT=$(cat $FILE)
+    if [[ -z $CONTENT ]]; then
+        echo "File is empty: $FILE"
+        return 1
+    fi
+
+    if [[ ${#CONTENT} -gt 4000 ]]; then
+        echo "File is too long: $FILE"
+        return 1
+    fi
+
+    echo "
+Take the following document and make it sound smarter.
+
+$CONTENT
+" | ezgpt3 -tokens 4000
 }
