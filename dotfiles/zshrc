@@ -47,3 +47,41 @@ fi
 
 # cloudplatform: add Shopify clusters to your local kubernetes config
 export KUBECONFIG=${KUBECONFIG:+$KUBECONFIG:}/Users/campbel/.kube/config:/Users/campbel/.kube/config.shopify.cloudplatform
+
+###
+## Functions
+###
+
+reload() {
+    source ~/.zshrc
+}
+
+gqc() {
+    set -ex
+    if [[ ! -d .git ]]; then
+        echo "Not a git repository."
+        return 1
+    fi
+    MSG=${1:-$(cat /dev/stdin)}
+    git add . && git commit -m "$MSG" && git push
+    unset -ex
+}
+
+gcm() {
+    if [[ ! -d .git ]]; then
+        echo "Not a git repository."
+        return 1
+    fi
+    CHANGES=$(git diff --ignore-all-space)
+    echo "
+The following is a diff of the changes you are about to commit.
+Please write a commit message that describes the changes you are making.
+The commit message should be written in the imperative mood, as if you were
+telling someone to do something. For example, \"Fix bug\" and not \"Fixed bug\"
+or \"Fixes bug.\" It should also be less than 70 characters long. 
+Include just the message, no labels or other text.
+
+Changes:
+$CHANGES
+" | ezgpt3 -tokens 70
+}
