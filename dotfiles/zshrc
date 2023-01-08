@@ -57,14 +57,12 @@ reload() {
 }
 
 gqc() {
-    set -ex
     if [[ ! -d .git ]]; then
         echo "Not a git repository."
         return 1
     fi
     MSG=${1:-$(cat /dev/stdin)}
     git add . && git commit -m "$MSG" && git push
-    unset -ex
 }
 
 gcm() {
