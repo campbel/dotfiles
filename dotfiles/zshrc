@@ -61,7 +61,7 @@ gcmt() {
         echo "Not a git repository."
         return 1
     fi
-    MSG=${1:-$(cat /dev/stdin)}
+    MSG=${1:-$(gmsg)}
     git add . && git commit -m "$MSG" && git push
 }
 
