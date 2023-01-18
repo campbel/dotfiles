@@ -84,20 +84,9 @@ $CHANGES
 }
 
 fix() {
-    FILE=${1}
+    CONTENT=$(cat /dev/stdin)
 
-    if [[ ! -f $FILE ]]; then
-        echo "File not found: $FILE"
-        return 1
-    fi
-
-    CONTENT=$(cat $FILE)
-    if [[ -z $CONTENT ]]; then
-        echo "File is empty: $FILE"
-        return 1
-    fi
-
-    if [[ ${#CONTENT} -gt 4000 ]]; then
+    if [[ ${#CONTENT} -gt 2000 ]]; then
         echo "File is too long: $FILE"
         return 1
     fi
@@ -106,5 +95,5 @@ fix() {
 Take the following document and make it sound smarter.
 
 $CONTENT
-" | ezgpt3 -tokens 4000
+" | ezgpt3 -tokens 2000
 }

@@ -1,0 +1,14 @@
+#!/usr/bin/env ruby
+
+require 'json'
+require 'matrix'
+
+if ARGV.length != 2
+  puts "Usage: #{$0} embed1 embed2"
+  exit 1
+end
+
+A = Vector.elements(JSON.parse(ARGV[0]))
+B = Vector.elements(JSON.parse(ARGV[1]))
+
+puts A.inner_product(B)
