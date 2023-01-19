@@ -1,0 +1,8 @@
+#!/bin/bash
+
+if [[ ! -d .git ]]; then
+    echo "Not a git repository."
+    return 1
+fi
+MSG=${1:-$(git.msg)}
+git commit -m "$MSG"
