@@ -1,0 +1,19 @@
+#!/bin/bash
+
+if [[ ! -d .git ]]; then
+    echo "Not a git repository."
+    return 1
+fi
+
+MAIN=$(git remote show origin | sed -n '/HEAD branch/s/.*: //p')
+
+CHANGES=$(git diff "$MAIN...HEAD")
+echo "
+The following is a diff of changes on this branch.
+Review the code and suggest changes or point out mistakes.
+Don't provide general advice, but instead specific instances where thins might be wrong.
+If nothing is found, just say so.
+Provide code examples for suggested changes.
+
+$CHANGES
+" | openai.complete --tokens 200
