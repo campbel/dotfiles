@@ -4,7 +4,7 @@ require 'json'
 require 'matrix'
 
 if ARGV.length != 2
-  puts "Usage: #{$0} embed1 embed2"
+  puts "Usage: #{$0} m1 m2"
   exit 1
 end
 

@@ -1,0 +1,10 @@
+#!/usr/bin/env ruby
+
+require 'json'
+
+def escape(s)
+    s.dump
+end
+
+print JSON.dump(JSON.load(ARGF.read))
+$stdout.flush

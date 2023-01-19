@@ -1,15 +1,42 @@
 #!/bin/bash
 
+MODEL="text-davinci-003"
+TOKENS="100"
+TEMPERATURE="0.6"
+
+while [[ $# -gt 0 ]]; do
+  case $1 in
+    -m|--model)
+      MODEL="$2"
+      shift
+      shift
+      ;;
+    -t|--tokens)
+      TOKENS="$2"
+      shift
+      shift
+      ;;
+    --temp)
+      TEMPERATURE="$2"
+      shift
+      shift
+      ;;
+    *)
+    shift
+    ;;
+  esac
+done
+
 TOKEN=$(cat ~/.config/openai/token)
-PROMPT=$(cat /dev/stdin)
+PROMPT=$(escape < /dev/stdin)
 BODY=$(echo "{
-    \"model\": \"text-davinci-003\",
-    \"prompt\": \"${PROMPT//$'\n'/\\n}\",
-    \"max_tokens\": 100,
-    \"temperature\": 0
-}" | jq -rc)
+    \"model\": \"$MODEL\",
+    \"prompt\": $PROMPT,
+    \"max_tokens\": $TOKENS,
+    \"temperature\": $TEMPERATURE
+}" | json | jq -rc)
 
 curl -s https://api.openai.com/v1/completions \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer $TOKEN" \
-  -d "$BODY" | jq -r '.choices[0].text'
+  -d "$BODY" | jq -r '.choices[0].text // .'

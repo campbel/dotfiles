@@ -1,0 +1,8 @@
+#!/usr/bin/env ruby
+
+def escape(s)
+    s.dump
+end
+
+print "#{escape(ARGF.read)}"
+$stdout.flush

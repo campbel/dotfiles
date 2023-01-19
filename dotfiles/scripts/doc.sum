@@ -1,0 +1,14 @@
+#!/bin/bash
+
+CONTENT=$(cat /dev/stdin)
+
+if [[ ${#CONTENT} -gt 4000 ]]; then
+    echo "File is too long: $FILE"
+    return 1
+fi
+
+echo "
+Summarize the following document.
+
+$CONTENT
+" | openai.complete --tokens 4000

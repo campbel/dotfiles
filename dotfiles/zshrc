@@ -22,7 +22,6 @@ command -v kubectx    &> /dev/null && alias kc=kubectx
 command -v systemctl  &> /dev/null && alias sc=systemctl
 command -v journalctl &> /dev/null && alias jc=journalctl
 command -v bat        &> /dev/null && alias cat=bat
-command -v batcat     &> /dev/null && alias cat=batcat
 
 if [[ -d ~/.config/spin ]]; then
     command -v kubectl &> /dev/null && alias kprod='kubectl --context "$(cat ~/.config/spin/spin.up.dev/cluster)" -n "$(cat ~/.config/spin/spin.up.dev/namespace)"'
@@ -54,46 +53,4 @@ export KUBECONFIG=${KUBECONFIG:+$KUBECONFIG:}/Users/campbel/.kube/config:/Users/
 
 reload() {
     source ~/.zshrc
-}
-
-gcmt() {
-    if [[ ! -d .git ]]; then
-        echo "Not a git repository."
-        return 1
-    fi
-    MSG=${1:-$(gmsg)}
-    git add . && git commit -m "$MSG" && git push
-}
-
-gmsg() {
-    if [[ ! -d .git ]]; then
-        echo "Not a git repository."
-        return 1
-    fi
-    CHANGES=$(git diff --ignore-all-space)
-    echo "
-The following is a diff of the changes you are about to commit.
-Please write a commit message that describes the changes you are making.
-The commit message should be written in the imperative mood, as if you were
-telling someone to do something. For example, \"Fix bug\" and not \"Fixed bug\"
-or \"Fixes bug.\" It should also be less than 70 characters long. 
-Include just the message, no labels or other text.
-
-$CHANGES
-" | ezgpt3 -tokens 70
-}
-
-fix() {
-    CONTENT=$(cat /dev/stdin)
-
-    if [[ ${#CONTENT} -gt 2000 ]]; then
-        echo "File is too long: $FILE"
-        return 1
-    fi
-
-    echo "
-Take the following document and make it sound smarter.
-
-$CONTENT
-" | ezgpt3 -tokens 2000
 }

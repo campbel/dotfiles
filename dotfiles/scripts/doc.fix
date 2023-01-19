@@ -1,0 +1,15 @@
+#!/bin/bash
+
+CONTENT=$(cat /dev/stdin)
+
+if [[ ${#CONTENT} -gt 2000 ]]; then
+    echo "File is too long: $FILE"
+    return 1
+fi
+
+echo "
+Take the following document and fix any spelling or grammar errors.
+If possible make it sound more natural.
+
+$CONTENT
+" | openai.complete --tokens 2000
