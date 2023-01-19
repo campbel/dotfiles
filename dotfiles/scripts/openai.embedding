@@ -1,13 +1,28 @@
 #!/bin/bash
 
+MODEL="text-embedding-ada-002"
+
+while [[ $# -gt 0 ]]; do
+  case $1 in
+    -m|--model)
+      MODEL="$2"
+      shift
+      shift
+      ;;
+    *)
+    shift
+    ;;
+  esac
+done
+
 TOKEN=$(cat ~/.config/openai/token)
-INPUT=$(cat /dev/stdin)
+INPUT=$(escape < /dev/stdin)
 BODY=$(echo "{
-    \"model\": \"text-embedding-ada-002\",
-    \"input\": \"${INPUT//$'\n'/\\n}\"
-}" | jq -rc)
+    \"model\": \"$MODEL\",
+    \"input\": \"${INPUT}\"
+}" | json | jq -rc)
 
 curl -s https://api.openai.com/v1/embeddings \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer $TOKEN" \
-  -d "$BODY" | jq -rc '.data[0].embedding'
+  -d "$BODY" | jq -rc '.data[0].embedding // .'
