@@ -1,0 +1,41 @@
+#!/bin/bash
+
+mkdir -p ~/temp
+if [ ! -f ~/temp/ai.chat.log ]; then
+  touch ~/temp/ai.chat.log
+fi
+LOG_FILE="$HOME/temp/ai.chat.log"
+LOG=$(cat "$LOG_FILE")
+MESSAGE=""
+
+while [[ $# -gt 0 ]]; do
+  case $1 in
+    --log)
+        echo "$LOG"
+        exit 0
+      ;;
+    --reset)
+        rm "$LOG_FILE"
+        exit 0
+      ;;
+    *)
+        MESSAGE="$1"
+        shift
+    ;;
+  esac
+done
+
+RESPONSE=$(echo "Have a chat with me as an AI companion
+Your name is AI
+My name is Chris
+Only complete responses for AI, not for Chris
+
+$(echo "$LOG" | tail -c 2000)
+Chris: $MESSAGE
+AI:
+" | openai.complete)
+
+echo "
+Chris: $MESSAGE
+AI: $RESPONSE" >> "$LOG_FILE"
+echo "$RESPONSE"
