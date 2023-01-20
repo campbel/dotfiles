@@ -19,7 +19,7 @@ TOKEN=$(cat ~/.config/openai/token)
 INPUT=$(escape < /dev/stdin)
 BODY=$(echo "{
     \"model\": \"$MODEL\",
-    \"input\": \"${INPUT}\"
+    \"input\": ${INPUT}
 }" | json | jq -rc)
 
 curl -s https://api.openai.com/v1/embeddings \
