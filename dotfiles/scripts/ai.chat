@@ -5,7 +5,6 @@ if [ ! -f ~/temp/ai.chat.log ]; then
   touch ~/temp/ai.chat.log
 fi
 LOG_FILE="$HOME/temp/ai.chat.log"
-LOG=$(cat "$LOG_FILE")
 MESSAGE=""
 
 while [[ $# -gt 0 ]]; do
@@ -19,23 +18,38 @@ while [[ $# -gt 0 ]]; do
         exit 0
       ;;
     *)
+        echo "Setting message to $1"
         MESSAGE="$1"
         shift
     ;;
   esac
 done
 
-RESPONSE=$(echo "Have a chat with me as an AI companion
+response() {
+  LOG=$(cat "$LOG_FILE")
+  MSG="$1"
+  RESPONSE=$(echo "Have a chat with me as an AI companion
 Your name is AI
 My name is Chris
 Only complete responses for AI, not for Chris
 
 $(echo "$LOG" | tail -c 2000)
-Chris: $MESSAGE
+Chris: $MSG
 AI:
 " | openai.complete)
 
 echo "
-Chris: $MESSAGE
+Chris: $MSG
 AI: $RESPONSE" >> "$LOG_FILE"
 echo "$RESPONSE"
+}
+
+if [ -n "${MESSAGE}" ]; then
+  response "$MESSAGE"
+else
+  while : 
+  do
+    read -rp "Chris: " MESSAGE
+    echo "AI: $(response "$MESSAGE")"
+  done
+fi
