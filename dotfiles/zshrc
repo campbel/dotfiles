@@ -1,5 +1,10 @@
 autoload -U compinit; compinit
 
+if [ $SPIN ]; then
+    export SPIN_HISTFILE="~/.config/spin/config/zsh_history"
+    [[ -f /etc/zsh/zshrc.default.inc.zsh ]] && source /etc/zsh/zshrc.default.inc.zsh
+fi
+
 [[ -x /opt/homebrew/bin/brew ]] && eval $(/opt/homebrew/bin/brew shellenv)
 command -v starship &> /dev/null && eval   "$(starship init zsh)"
 command -v kubectl  &> /dev/null && source <(kubectl completion zsh)
@@ -38,12 +43,6 @@ fi
 ## SHOPIFY
 ###
 [[ -d ~/src/github.com/Shopify/cloudplatform/workflow-utils ]] && for file in ~/src/github.com/Shopify/cloudplatform/workflow-utils/*.bash; do source ${file}; done
-
-if [ $SPIN ]; then
-    export SPIN_HISTFILE="~/.config/spin/config/zsh_history"
-    [[ -f /etc/zsh/zshrc.default.inc.zsh ]] && source /etc/zsh/zshrc.default.inc.zsh
-fi
-
 [[ -f /opt/dev/sh/chruby/chruby.sh ]] && type chruby >/dev/null 2>&1 || chruby () { source /opt/dev/sh/chruby/chruby.sh; chruby "$@"; }
 
 # cloudplatform: add Shopify clusters to your local kubernetes config
