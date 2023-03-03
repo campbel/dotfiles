@@ -2,9 +2,9 @@
 
 CONTENT=$(cat /dev/stdin)
 
-if [[ ${#CONTENT} -gt 2000 ]]; then
-    echo "File is too long: $FILE"
-    return 1
+if [[ ${#CONTENT} -gt 2100 ]]; then
+    echo "Content is too long"
+    exit 1
 fi
 
 echo "
