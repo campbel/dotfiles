@@ -1,6 +1,6 @@
-home: ~/.nap
+home: .nap
 file: snippets.json
-currentFolder: 0
+currentFolder: 1
 default_language: go
 theme: nord
 primary_color: '#AFBEE1'
