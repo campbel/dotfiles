@@ -56,7 +56,7 @@ snap() {
     nap "$@"
     if [[ `git -C "$HOME/.nap" status --porcelain '.'` ]]; then
         git -C "$HOME/.nap" add .
-        git -C "$HOME/.nap" commit -m "nap: $*"
+        git -C "$HOME/.nap" commit -m "snap autosave"
         git -C "$HOME/.nap" push
     fi
 }
