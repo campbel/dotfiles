@@ -1,4 +1,4 @@
-home: .nap
+home: ~/.nap
 file: snippets.json
 currentFolder: 0
 default_language: go
