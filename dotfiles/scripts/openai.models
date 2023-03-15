@@ -1,8 +1,10 @@
 #!/bin/bash
 
 TOKEN=$(cat ~/.config/openai/token)
+ORG_ID=$(cat ~/.config/openai/org_id)
 
 curl -s https://api.openai.com/v1/models \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer $TOKEN" \
+  -H "OpenAI-Organization: $ORG_ID" \
     | jq -r '.data[] | .id'
