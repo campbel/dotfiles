@@ -1,0 +1,47 @@
+#!/usr/bin/env ruby
+
+require 'optparse'
+require 'uri'
+require 'net/http'
+require "json"
+
+token = File.open("#{Dir.home}/.config/openai/token", "r").read.strip
+org_id = File.open("#{Dir.home}/.config/openai/org_id", "r").read.strip
+
+options = {
+    model: "text-davinci-003",
+    max_tokens: 100,
+    temperature: 0.6
+}
+
+OptionParser.new do |opt|
+  opt.on('--model MODEL') { |o| options[:model] = o }
+  opt.on('--max_tokens TOKENS') { |o| options[:max_tokens] = o.to_i }
+  opt.on('--temperature TEMPERATURE') { |o| options[:temperature] = o.to_f }
+end.parse!
+
+prompt = ARGF.read
+
+uri = URI('https://api.openai.com/v1/completions')
+Net::HTTP.start(uri.host, uri.port, :use_ssl => true) do |http|
+  request = Net::HTTP::Post.new uri
+  request['Content-Type'] = 'application/json'
+  request['Authorization'] = "Bearer #{token}"
+  request['OpenAI-Organization'] = org_id
+  request.body = {
+    "model" => options[:model],
+    "prompt" => prompt,
+    "max_tokens" => options[:max_tokens],
+    "temperature" => options[:temperature],
+    "top_p" => 1,
+    "frequency_penalty" => 0,
+    "presence_penalty" => 0,
+  }.to_json
+
+  response = http.request(request)
+  if response.is_a?(Net::HTTPSuccess)
+    puts JSON.parse(response.body).dig("choices", 0, "text") 
+  else
+    puts response.body
+  end
+end

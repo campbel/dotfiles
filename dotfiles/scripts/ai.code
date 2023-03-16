@@ -1,0 +1,36 @@
+#!/usr/bin/env ruby
+
+require 'optparse'
+require 'open3'
+
+options = {
+  language: "ruby"
+}
+
+OptionParser.new do |opt|
+  opt.on('-l', '--language LANGUAGE') { |o| options[:language] = o }
+end.parse!
+
+def ai_complete(prompt)
+  cmd = "ai.complete --max_tokens #{4097-prompt.length} --temperature 0.6"
+  stdin, stdout, stderr, wait_thr = Open3.popen3(cmd)
+  stdin.puts prompt
+  stdin.close
+  output = stdout.read
+  stdout.close
+  stderr.close
+  exit_status = wait_thr.value
+  output
+end
+
+puts "What code can I help you with?"
+result = ai_complete("Write the following code in #{options[:language]}: #{gets.chomp}")
+puts("---\n#{result}")
+
+while true do
+  puts "---\nWhat do you think (enter to exit)?"
+  prompt = gets.chomp
+  break if prompt == ""
+  result = ai_complete("Modify the code below in the following way: #{prompt}\n```#{options[:language]}\n#{result}\n```")
+  puts("---\n#{result}")
+end
