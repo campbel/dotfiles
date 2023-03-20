@@ -1,0 +1,131 @@
+#!/usr/bin/env ruby
+
+require 'openai'
+require 'yaml'
+require 'json'
+
+OPENAI_EMBEDDING_MODEL = "text-embedding-ada-002"
+OPENAI_COMPLETIONS_MODEL = "text-davinci-003"
+OPENAI_EMBEDDING_CACHE = File.expand_path('~/.config/openai/embedding_cache')
+OPENAI_SUMMARY_CACHE = File.expand_path('~/.config/openai/summary_cache')
+
+
+OpenAI.configure do |config|
+    config.access_token = File.read(File.expand_path('~/.config/openai/token')).strip
+    config.organization_id = File.read(File.expand_path('~/.config/openai/org_id')).strip
+end
+
+def getPrompt(question, docs)
+    context = docs.map do |doc|
+        <<-EOF
+        File: #{doc['file']}
+        Type: #{doc['type']}
+        Content: #{doc['content']}
+        EOF
+    end
+    <<-EOF
+    Given the following code, complete the question below:
+
+    #{context.join("\n\n")}
+
+    Question: What color is the sky?
+    Answer: Blue.
+
+    Question: What is the chemical formula for water?
+    Answer: H2O.
+
+    Question: #{question}
+    Answer:
+    EOF
+end
+
+def getCodeSummary(code)
+    getCompletion("Summarize what the following code does:\n\n#{code}\n\n")
+end
+
+def getCompletion(prompt)
+    OpenAI::Client.new.completions(
+        parameters: {
+            model: OPENAI_COMPLETIONS_MODEL,
+            prompt: prompt,
+            max_tokens: 2000,
+            temperature: 0.3,
+        },
+      ).dig("choices", 0, "text").strip
+end
+
+def getEmbedding(content)
+    OpenAI::Client.new.embeddings(
+        parameters: {
+          model: OPENAI_EMBEDDING_MODEL,
+          input: content,
+        },
+      ).dig("data", 0, "embedding")
+end
+
+# If no file is given, exit
+if ARGV.length < 1 || !File.exists?(ARGV[0])
+    exit
+end
+
+embeddingCache = if File.exists?(OPENAI_EMBEDDING_CACHE)
+    JSON.load(File.read(OPENAI_EMBEDDING_CACHE))
+else
+    {}
+end
+
+summaryCache = if File.exists?(OPENAI_SUMMARY_CACHE)
+    JSON.load(File.read(OPENAI_SUMMARY_CACHE))
+else
+    {}
+end
+
+# Use a switch to determine the file type
+file = case File.extname(ARGV[0])
+when ".yaml", ".yml"
+    YAML.load(File.read(ARGV[0]))
+when ".json"
+    JSON.load(File.read(ARGV[0]))
+else
+    abort "Unknown file type #{File.extname(ARGV[0])}"
+end
+
+file.each do |doc|
+    if doc.has_key?('embedding')
+        next
+    end
+
+    if doc['type'] == 'function_declaration'
+        key = Digest::SHA256.hexdigest(doc['content'])
+        if !summaryCache.has_key?(key)
+          summaryCache[key] = getCodeSummary(doc['content'])
+        end
+        doc['content'] = summaryCache[key]
+    end
+    # If the embedding exists in the cache, use it
+    key = Digest::SHA256.hexdigest(doc['content'])
+    if !embeddingCache.has_key?(key)
+      embeddingCache[key] = getEmbedding(doc['content'])
+    end
+    doc['embedding'] = embeddingCache[key]
+end
+File.write(OPENAI_EMBEDDING_CACHE, JSON.dump(embeddingCache))
+File.write(OPENAI_SUMMARY_CACHE, JSON.dump(summaryCache))
+
+# If no query is given, exit
+if ARGV.length < 2
+    exit
+end
+
+queryEmbedding = getEmbedding(ARGV[1])
+
+# Find the 5 closest documents
+file.sort_by! do |doc|
+    doc['embedding'].zip(queryEmbedding).map { |a, b| (a - b)**2 }.sum
+end
+
+puts "--- Answer ---"
+puts getCompletion(getPrompt(ARGV[1], file[0..4]))
+puts ""
+puts "--- Files ---"
+puts file[0..4].map { |doc| "#{doc['file']}:#{doc['line'].to_s}"  }.join("\n")
