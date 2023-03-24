@@ -1,3 +1,0 @@
-#!/bin/bash
-
-highlight -f html "$@" | textutil -stdin -format html -convert rtf -stdout | pbcopy
