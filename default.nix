@@ -2,7 +2,7 @@ let
     pkgs = import <nixpkgs> {};
     starship_config=pkgs.fetchgit {
         url = "https://github.com/campbel/dotfiles.git";
-        rev "fe0930d3cbd2bcc3109765672e13f342fcb95f93";
+        rev = "fe0930d3cbd2bcc3109765672e13f342fcb95f93";
     };
 
     stdenv.mkDerivation {
