@@ -24,8 +24,3 @@ fi
 
 export NAP_CONFIG="$HOME/.nap/config.yaml"
 export NAP_HOME="$HOME/.nap"
-
-if [ ! $SPIN ]; then
-    export GOROOT="/usr/local/go"
-    export GOPATH="$HOME/go"
-fi

@@ -3,6 +3,9 @@ autoload -U compinit; compinit
 if [ $SPIN ]; then
     export SPIN_HISTFILE="~/.config/spin/config/zsh_history"
     [[ -f /etc/zsh/zshrc.default.inc.zsh ]] && source /etc/zsh/zshrc.default.inc.zsh
+else
+    export GOROOT="/usr/local/go"
+    export GOPATH="$HOME/go"
 fi
 
 [[ -x /opt/homebrew/bin/brew ]] && eval $(/opt/homebrew/bin/brew shellenv)
