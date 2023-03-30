@@ -1,6 +1,6 @@
 autoload -U compinit; compinit
 
-if [ $SPIN ]; then
+if [ -n "${SPIN+1}" ]; then
     export SPIN_HISTFILE="~/.config/spin/config/zsh_history"
     [[ -f /etc/zsh/zshrc.default.inc.zsh ]] && source /etc/zsh/zshrc.default.inc.zsh
 else
