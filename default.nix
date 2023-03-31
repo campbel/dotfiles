@@ -4,7 +4,7 @@ let
     dotfiles=pkgs.fetchgit {
         url = "https://github.com/campbel/dotfiles.git";
         rev = "c30884c420e5dba6eba2637599d09fcb0ff1069b";
-        sha256 = "dUD5PbCWCnPfKfXGg52yh6Y1qsjDA7JeqmYK9d1fdCc=";
+        sha256 = "0C4pt1fg7BX23fkBID89wZkFnDAvnWQxlh8cQmyozUY=";
     };
 in
 
