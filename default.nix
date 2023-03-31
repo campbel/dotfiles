@@ -11,15 +11,21 @@ in
 stdenv.mkDerivation {
     name = "campbel-shell";
     buildInputs = [
+        bat
+        curl
+        git
         jq
         go_1_20
         zsh
         starship
+        vim
     ];
     shellHook = ''
         echo "Copying files from Git repository to home directory..."
         mkdir -p ~/.config
-        cp -R ${dotfiles}/config/starship.toml ~/.config/starship.nix.toml
+        cp ${dotfiles}/config/starship.toml ~/.config/starship.nix.toml
+        cp ${dotfiles}/dotfiles/zshrc ~/.zshrc
+        cp ${dotfiles}/dotfiles/zprofile ~/.zprofile
         echo "Files copied successfully!"
     '';
 }
