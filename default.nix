@@ -23,7 +23,7 @@ stdenv.mkDerivation {
     shellHook = ''
         echo "Copying files from Git repository to home directory..."
         mkdir -p ~/.config
-        cp ${dotfiles}/config/starship.toml ~/.config/starship.toml
+        cp ${dotfiles}/config/starship.nix.toml ~/.config/starship.toml
         cp ${dotfiles}/dotfiles/zshrc ~/.zshrc
         cp ${dotfiles}/dotfiles/zprofile ~/.zprofile
         echo "Files copied successfully!"
