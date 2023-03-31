@@ -3,7 +3,7 @@ with import <nixpkgs> {};
 let
     dotfiles=pkgs.fetchgit {
         url = "https://github.com/campbel/dotfiles.git";
-        rev = "c30884c420e5dba6eba2637599d09fcb0ff1069b";
+        rev = "b40e8413346e5c2b18a64daa08aeda317b35bc78";
         sha256 = "0C4pt1fg7BX23fkBID89wZkFnDAvnWQxlh8cQmyozUY=";
     };
 in
