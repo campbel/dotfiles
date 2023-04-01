@@ -39,6 +39,7 @@ if [ "$SPIN" ]; then
     echo -e "${BCyan}[Installing nix${NC}]"
     /bin/sh setup_nix
     setup_configs
+    echo "home-manager switch -b backup && zsh" >> ~/.zlogin
     exit 0
 else
     echo -e "${BCyan}[Installing packages${NC}]"

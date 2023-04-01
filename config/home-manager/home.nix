@@ -24,6 +24,7 @@
     pkgs.ripgrep
     pkgs.curl
     pkgs.git
+    pkgs.jq
     pkgs.tmux
     pkgs.zsh
     pkgs.starship
