@@ -87,7 +87,7 @@
       sc = "systemctl";
       jc = "journalctl";
       cat = "bat";
-      ls = "colorls";
+      ls = "colorls --dark";
     };
 
     initExtra = ''
