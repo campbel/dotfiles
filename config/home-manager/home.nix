@@ -29,6 +29,7 @@
     pkgs.zsh
     pkgs.starship
     pkgs.bat
+    pkgs.colorls
 
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
@@ -86,6 +87,7 @@
       sc = "systemctl";
       jc = "journalctl";
       cat = "bat";
+      ls = "colorls";
     };
 
     initExtra = ''
