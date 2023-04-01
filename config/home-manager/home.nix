@@ -51,7 +51,7 @@
     plugins = with pkgs.vimPlugins; [
       dracula-nvim
       nvim-treesitter
-      (nvim-treesitter.withPlugins (p: [ p.nix p.ruby p.go ]))
+      (nvim-treesitter.withPlugins (p: [ p.nix p.ruby p.go p.yaml p.json p.typescript p.javascript]))
     ];
 
     extraConfig = ''
