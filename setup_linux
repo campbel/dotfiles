@@ -3,8 +3,13 @@
 echo "Setting up Linux system"
 
 if [ "$SPIN" ]; then
-    sudo apt install -y \
-        bat
+    # Install Nix and Home Manager
+    curl -L https://nixos.org/nix/install | sh
+    . "$HOME/.nix-profile/etc/profile.d/nix.sh"
+    export NIX_PATH="${NIX_PATH:+$NIX_PATH:}$HOME/.nix-defexpr/channels"
+    nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager
+    nix-channel --update
+    nix-shell '<home-manager>' -A install
 else
     sudo apt update -y
     sudo apt install -y \
@@ -13,16 +18,7 @@ else
         zsh \
         git
     sudo apt upgrade -y
+    # Install starship
+    sudo /bin/sh starship/install.sh -y
     chsh -s /usr/bin/zsh
 fi
-
-# Install starship
-sudo /bin/sh starship/install.sh -y
-
-# Install Nix and Home Manager
-curl -L https://nixos.org/nix/install | sh
-. "$HOME/.nix-profile/etc/profile.d/nix.sh"
-export NIX_PATH="${NIX_PATH:+$NIX_PATH:}$HOME/.nix-defexpr/channels"
-nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager
-nix-channel --update
-nix-shell '<home-manager>' -A install
