@@ -1,40 +1,52 @@
 #!/usr/bin/env bash
 
-# If SPIN is set then just setup nix
-if [ "$SPIN" ]; then
-    /bin/sh setup_nix
-    exit 0
-fi
-
 NC='\033[0m'
 BCyan='\033[1;36m'
-BGreen='\033[1;32m'       # Green
-BBlue='\033[1;34m'        # Blue
+BGreen='\033[1;32m'
+BBlue='\033[1;34m'
 
-echo -e "${BCyan}[Installing packages${NC}]"
-case $( uname -s ) in
-Linux) /bin/sh setup_linux;;
-Darwin) /bin/sh setup_mac;;
-*)     echo other;;
-esac
+setup_submodules() {
+    echo -e "${BCyan}[Installing submodules]${NC}"
+    git submodule init; git submodule update
+}
 
-git submodule init; git submodule update
+setup_dotfiles() {
+    echo -e "${BGreen}[Installing dotfiles]${NC}"
+    DOTFILES_DIR=~/src/github.com/campbel/dotfiles
+    if [ "$SPIN" ]; then
+        DOTFILES_DIR=~/dotfiles
+    fi
+    for i in "$DOTFILES_DIR"/dotfiles/*; do
+        echo -e ".$(basename "$i")"
+        [ -d ~/."$(basename "$i")" ] && rm -rf ~/."$(basename "$i")"
+        ln -sf "$i" ~/."$(basename "$i")"
+    done
+}
 
-echo -e "${BGreen}[Installing dotfiles]${NC}"
-DOTFILES_DIR=~/src/github.com/campbel/dotfiles
+setup_configs() {
+    echo -e "${BBlue}[Adding configs]${NC}"
+    mkdir -p ~/.config
+    for i in "$DOTFILES_DIR"/config/*; do
+        echo -e "$(basename "$i")"
+        [ -d ~/.config/"$(basename "$i")" ] && rm -rf ~/.config/"$(basename "$i")"
+        ln -sf "$i" ~/.config/"$(basename "$i")"
+    done
+}
+
+# If SPIN is set then just setup nix
 if [ "$SPIN" ]; then
-    DOTFILES_DIR=~/dotfiles
+    echo -e "${BCyan}[Installing nix${NC}]"
+    /bin/sh setup_nix
+    setup_configs
+    exit 0
+else
+    echo -e "${BCyan}[Installing packages${NC}]"
+    case $( uname -s ) in
+    Linux) /bin/sh setup_linux;;
+    Darwin) /bin/sh setup_mac;;
+    *)     echo other;;
+    esac
+    setup_submodules
+    setup_dotfiles
+    setup_configs
 fi
-for i in "$DOTFILES_DIR"/dotfiles/*; do
-  echo -e ".$(basename "$i")"
-  [ -d ~/."$(basename "$i")" ] && rm -rf ~/."$(basename "$i")"
-  ln -sf "$i" ~/."$(basename "$i")"
-done
-
-echo -e "${BBlue}[Adding configs]${NC}"
-mkdir -p ~/.config
-for i in "$DOTFILES_DIR"/config/*; do
-  echo -e "$(basename "$i")"
-  [ -d ~/.config/"$(basename "$i")" ] && rm -rf ~/.config/"$(basename "$i")"
-  ln -sf "$i" ~/.config/"$(basename "$i")"
-done

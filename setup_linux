@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-echo "Setting up Linux system"
+echo "Setting up Linux"
 
 if [ "$SPIN" ]; then
     true
