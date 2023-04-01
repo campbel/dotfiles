@@ -18,7 +18,7 @@
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = [
-    pkgs.nerdfonts
+    (pkgs.nerdfonts.override { fonts = [ "FiraCode Nerd Font Mono" ]; })
     pkgs.neovim
     pkgs.fzf
     pkgs.ripgrep
@@ -67,9 +67,33 @@
   #
   # if you don't want to manage your shell through Home Manager.
   home.sessionVariables = {
-    # EDITOR = "emacs";
+    EDITOR = "vim";
   };
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
+  programs.zsh = {
+    autocd = true;
+    enable = true;
+    enableCompletion = true;
+    enableAutosuggestions = true;
+    enableSyntaxHighlighting = true;
+
+    shellAliases = {
+      sc = "systemctl";
+      jc = "journalctl";
+      bat = "batcat";
+      cat = "batcat";
+    };
+
+    initExtra = ''
+      command -v starship &> /dev/null && eval   "$(starship init zsh)"
+      command -v tunnel   &> /dev/null && source <(tunnel completion zsh)
+    ''
+  };
+
+  programs.fzf = {
+    enable = true;
+    enableZshIntegration = true;
+  };
 }

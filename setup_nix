@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+echo "Setting up Nix and Home Manager"
+
+# Install Nix
+curl -L https://nixos.org/nix/install | sh
+. "$HOME/.nix-profile/etc/profile.d/nix.sh"
+
+# Install Home Manager
+export NIX_PATH="${NIX_PATH:+$NIX_PATH:}$HOME/.nix-defexpr/channels"
+nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager
+nix-channel --update
+nix-shell '<home-manager>' -A install

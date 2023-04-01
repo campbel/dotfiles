@@ -1,5 +1,11 @@
 #!/usr/bin/env bash
 
+# If $NIX is set then just setup nix
+if [ "$NIX" ]; then
+    /bin/sh setup_nix
+    exit 0
+fi
+
 NC='\033[0m'
 BCyan='\033[1;36m'
 BGreen='\033[1;32m'       # Green
