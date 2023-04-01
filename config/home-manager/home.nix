@@ -39,9 +39,9 @@
     # # You can also create simple shell scripts directly inside your
     # # configuration. For example, this adds a command 'my-hello' to your
     # # environment:
-    (pkgs.writeShellScriptBin "reload" ''
-       source ${config.home.homeDirectory}/.zshrc
-    '')
+    # (pkgs.writeShellScriptBin "reload" ''
+    #    source ${config.home.homeDirectory}/.zshrc
+    # '')
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
