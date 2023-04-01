@@ -32,6 +32,7 @@ command -v journalctl &> /dev/null && alias jc=journalctl
 command -v bat        &> /dev/null && alias cat=bat
 command -v batcat     &> /dev/null && alias bat=batcat && alias cat=batcat
 command -v podman     &> /dev/null && alias docker=podman
+command -v colorls    &> /dev/null && alias ls="colorls --dark"
 
 if [[ -d ~/.config/spin ]]; then
     command -v kubectl &> /dev/null && alias kprod='kubectl --context "$(cat ~/.config/spin/spin.up.dev/cluster)" -n "$(cat ~/.config/spin/spin.up.dev/namespace)"'

@@ -8,4 +8,7 @@ brew install \
     git \
     zsh \
     starship \
-    iterm2
+    iterm2 \
+    colorls
+
+sudo gem install colorls
