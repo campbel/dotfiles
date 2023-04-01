@@ -18,7 +18,7 @@
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = [
-    (pkgs.nerdfonts.override { fonts = [ "FiraCode Nerd Font Mono" ]; })
+    (pkgs.nerdfonts.override { fonts = [ "FiraCode" ]; })
     pkgs.neovim
     pkgs.fzf
     pkgs.ripgrep
@@ -26,6 +26,8 @@
     pkgs.git
     pkgs.tmux
     pkgs.zsh
+    pkgs.starship
+    pkgs.bat
 
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
@@ -36,9 +38,9 @@
     # # You can also create simple shell scripts directly inside your
     # # configuration. For example, this adds a command 'my-hello' to your
     # # environment:
-    # (pkgs.writeShellScriptBin "my-hello" ''
-    #   echo "Hello, ${config.home.username}!"
-    # '')
+    (pkgs.writeShellScriptBin "reload" ''
+       source ${config.homeDirectory}/.zshrc
+    '')
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
@@ -67,7 +69,7 @@
   #
   # if you don't want to manage your shell through Home Manager.
   home.sessionVariables = {
-    EDITOR = "vim";
+    EDITOR = "code -w";
   };
 
   # Let Home Manager install and manage itself.
@@ -82,14 +84,13 @@
     shellAliases = {
       sc = "systemctl";
       jc = "journalctl";
-      bat = "batcat";
-      cat = "batcat";
+      cat = "bat";
     };
 
     initExtra = ''
       command -v starship &> /dev/null && eval   "$(starship init zsh)"
       command -v tunnel   &> /dev/null && source <(tunnel completion zsh)
-    ''
+    '';
   };
 
   programs.fzf = {
