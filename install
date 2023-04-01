@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-# If $NIX is set then just setup nix
-if [ "$NIX" ]; then
+# If SPIN is set then just setup nix
+if [ "$SPIN" ]; then
     /bin/sh setup_nix
     exit 0
 fi

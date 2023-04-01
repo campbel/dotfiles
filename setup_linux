@@ -15,7 +15,7 @@ else
     chsh -s /usr/bin/zsh
 fi
 
-sudp apt install -y \
+sudo apt install -y \
     bat
 
 sudo /bin/sh starship/install.sh -y
