@@ -21,6 +21,7 @@ sudo /bin/sh starship/install.sh -y
 
 # Install Nix and Home Manager
 curl -L https://nixos.org/nix/install | sh
+source "$HOME/.nix-profile/etc/profile.d/nix.sh"
 nix-channel --add https://github.com/nix-community/home-manager/archive/release-22.11.tar.gz home-manager
 nix-channel --update
 nix-shell '<home-manager>' -A install
