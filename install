@@ -5,6 +5,11 @@ BCyan='\033[1;36m'
 BGreen='\033[1;32m'
 BBlue='\033[1;34m'
 
+DOTFILES_DIR=~/src/github.com/campbel/dotfiles
+if [ "$SPIN" ]; then
+    DOTFILES_DIR=~/dotfiles
+fi
+
 setup_submodules() {
     echo -e "${BCyan}[Installing submodules]${NC}"
     git submodule init; git submodule update
@@ -12,10 +17,6 @@ setup_submodules() {
 
 setup_dotfiles() {
     echo -e "${BGreen}[Installing dotfiles]${NC}"
-    DOTFILES_DIR=~/src/github.com/campbel/dotfiles
-    if [ "$SPIN" ]; then
-        DOTFILES_DIR=~/dotfiles
-    fi
     for i in "$DOTFILES_DIR"/dotfiles/*; do
         echo -e ".$(basename "$i")"
         [ -d ~/."$(basename "$i")" ] && rm -rf ~/."$(basename "$i")"
