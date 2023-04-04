@@ -41,6 +41,7 @@
     initExtra = ''
       command -v starship &> /dev/null && eval   "$(starship init zsh)"
       command -v tunnel   &> /dev/null && source <(tunnel completion zsh)
+      [[ -f /opt/dev/dev.sh ]] && source /opt/dev/dev.sh
     '';
   };
 
