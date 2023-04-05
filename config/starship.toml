@@ -2,7 +2,6 @@ format = """
 [](#9A348E)\
 $os\
 $username\
-$hostname\
 [](bg:#DA627D fg:#9A348E)\
 $directory\
 [](fg:#DA627D bg:#FCA17D)\
@@ -14,12 +13,28 @@ $golang\
 $nodejs\
 $rust\
 $ruby\
-[](fg:#86BBD8 bg:#06969A)\
-$memory_usage\
-[](fg:#06969A bg:#33658A)\
+[](fg:#86BBD8 bg:#33658A)\
 $time\
 [ ](fg:#33658A)\
 """
+
+right_format = """
+$memory_usage\
+${custom.hostname}\
+"""
+
+[memory_usage]
+disabled = false
+threshold = 90
+style = "fg:#000000"
+symbol = ""
+format = '[ $symbol ${ram} ]($style)'
+
+[custom.hostname]
+when = true
+command = "hostname -A || hostname -s"
+symbol = "󰊠"
+format = "[ $symbol $output ](fg:#000000)"
 
 # Disable the blank line at the start of the prompt
 # add_newline = false
@@ -108,10 +123,3 @@ disabled = false
 time_format = "%R" # Hour:Minute Format
 style = "bg:#33658A"
 format = '[ $time ]($style)'
-
-[memory_usage]
-disabled = false
-threshold = 75
-style = "bg:#06969A"
-symbol = ""
-format = '[ $symbol ${ram} ]($style)'
