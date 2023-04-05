@@ -15,7 +15,7 @@ $nodejs\
 $rust\
 $ruby\
 [](fg:#86BBD8 bg:#06969A)\
-$docker_context\
+$memory_usage\
 [](fg:#06969A bg:#33658A)\
 $time\
 [ ](fg:#33658A)\
@@ -34,9 +34,10 @@ format = '[$user ]($style)'
 disabled = false
 
 [hostname]
-ssh_only = true
+ssh_only = false
 style = "bg:#9A348E"
 format = '[$hostname ]($style)'
+trim_at = ''
 
 # An alternative to the username module which displays a symbol that
 # represents the current operating system
@@ -107,3 +108,10 @@ disabled = false
 time_format = "%R" # Hour:Minute Format
 style = "bg:#33658A"
 format = '[ $time ]($style)'
+
+[memory_usage]
+disabled = false
+threshold = 75
+style = "bg:#06969A"
+symbol = ""
+format = '[ $symbol ${ram} ]($style)'
