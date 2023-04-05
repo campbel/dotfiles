@@ -2,6 +2,7 @@ format = """
 [](#9A348E)\
 $os\
 $username\
+$hostname\
 [](bg:#DA627D fg:#9A348E)\
 $directory\
 [](fg:#DA627D bg:#FCA17D)\
@@ -9,16 +10,10 @@ $git_branch\
 $git_status\
 [](fg:#FCA17D bg:#86BBD8)\
 $c\
-$elixir\
-$elm\
 $golang\
-$haskell\
-$java\
-$julia\
 $nodejs\
-$nim\
 $rust\
-$scala\
+$ruby\
 [](fg:#86BBD8 bg:#06969A)\
 $docker_context\
 [](fg:#06969A bg:#33658A)\
@@ -37,6 +32,11 @@ style_user = "bg:#9A348E"
 style_root = "bg:#9A348E"
 format = '[$user ]($style)'
 disabled = false
+
+[hostname]
+ssh_only = true
+style = "bg:#9A348E"
+format = '[$hostname ]($style)'
 
 # An alternative to the username module which displays a symbol that
 # represents the current operating system
@@ -73,16 +73,6 @@ symbol = " "
 style = "bg:#06969A"
 format = '[ $symbol $context ]($style) $path'
 
-[elixir]
-symbol = " "
-style = "bg:#86BBD8"
-format = '[ $symbol ($version) ]($style)'
-
-[elm]
-symbol = " "
-style = "bg:#86BBD8"
-format = '[ $symbol ($version) ]($style)'
-
 [git_branch]
 symbol = ""
 style = "bg:#FCA17D"
@@ -97,18 +87,8 @@ symbol = " "
 style = "bg:#86BBD8"
 format = '[ $symbol ($version) ]($style)'
 
-[haskell]
-symbol = " "
-style = "bg:#86BBD8"
-format = '[ $symbol ($version) ]($style)'
-
-[java]
-symbol = " "
-style = "bg:#86BBD8"
-format = '[ $symbol ($version) ]($style)'
-
-[julia]
-symbol = " "
+[ruby]
+symbol = " "
 style = "bg:#86BBD8"
 format = '[ $symbol ($version) ]($style)'
 
@@ -117,18 +97,8 @@ symbol = ""
 style = "bg:#86BBD8"
 format = '[ $symbol ($version) ]($style)'
 
-[nim]
-symbol = " "
-style = "bg:#86BBD8"
-format = '[ $symbol ($version) ]($style)'
-
 [rust]
 symbol = ""
-style = "bg:#86BBD8"
-format = '[ $symbol ($version) ]($style)'
-
-[scala]
-symbol = " "
 style = "bg:#86BBD8"
 format = '[ $symbol ($version) ]($style)'
 
