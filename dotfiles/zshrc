@@ -1,23 +1,16 @@
 autoload -U compinit; compinit
 
-if [ -n "${SPIN+1}" ]; then
-    export SPIN_HISTFILE="~/.config/spin/config/zsh_history"
-    [[ -f /etc/zsh/zshrc.default.inc.zsh ]] && source /etc/zsh/zshrc.default.inc.zsh
-else
-    export GOROOT="/usr/local/go"
-    export GOPATH="$HOME/go"
-fi
+export GOROOT="/usr/local/go"
+export GOPATH="$HOME/go"
 
 [[ -x /opt/homebrew/bin/brew ]] && eval $(/opt/homebrew/bin/brew shellenv)
 command -v starship &> /dev/null && eval   "$(starship init zsh)"
 command -v kubectl  &> /dev/null && source <(kubectl completion zsh)
-command -v spin     &> /dev/null && source <(spin completion)
-command -v tunnel   &> /dev/null && source <(tunnel completion zsh)
-[[ -f /opt/dev/dev.sh ]] && source /opt/dev/dev.sh
 [[ -f /opt/dev/sh/chruby/chruby.sh ]] && { type chruby >/dev/null 2>&1 || chruby () { source /opt/dev/sh/chruby/chruby.sh; chruby "$@"; } }
 [[ -d ~/.kube ]] && for file in ~/.kube/*; do [[ $file = ~/.kube/config* ]] && export KUBECONFIG="${KUBECONFIG}:${file}"; done
 [[ -f ~/.zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh ]] && source ~/.zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 [[ -f ~/.zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]] && source ~/.zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+command -v dircolors &> /dev/null && eval "$(dircolors $HOME/.dircolors)"
 
 export EDITOR="code -w"
 
@@ -32,7 +25,12 @@ command -v journalctl &> /dev/null && alias jc=journalctl
 command -v bat        &> /dev/null && alias cat=bat
 command -v batcat     &> /dev/null && alias bat=batcat && alias cat=batcat
 command -v podman     &> /dev/null && alias docker=podman
-command -v colorls    &> /dev/null && alias ls="colorls --dark"
+if command -v colorls &> /dev/null; then 
+    alias ls="colorls --dark"
+else
+    alias ls="ls --color=always"
+fi
+
 
 if [[ -d ~/.config/spin ]]; then
     command -v kubectl &> /dev/null && alias kprod='kubectl --context "$(cat ~/.config/spin/spin.up.dev/cluster)" -n "$(cat ~/.config/spin/spin.up.dev/namespace)"'
@@ -44,15 +42,6 @@ if [[ -d ~/.krew ]]; then
 fi
 
 ###
-## SHOPIFY
-###
-[[ -d ~/src/github.com/Shopify/cloudplatform/workflow-utils ]] && for file in ~/src/github.com/Shopify/cloudplatform/workflow-utils/*.bash; do source ${file}; done
-[[ -f /opt/dev/sh/chruby/chruby.sh ]] && { type chruby >/dev/null 2>&1 || chruby () { source /opt/dev/sh/chruby/chruby.sh; chruby "$@"; } }
-
-# cloudplatform: add Shopify clusters to your local kubernetes config
-export KUBECONFIG=${KUBECONFIG:+$KUBECONFIG:}/Users/campbel/.kube/config:/Users/campbel/.kube/config.shopify.cloudplatform
-
-###
 ## Nix
 ###
 if [[ -f "$HOME/.nix-profile/etc/profile.d/nix.sh" ]]; then
@@ -61,11 +50,9 @@ fi
 
 command -v nix-shell &> /dev/null && alias nixify='nix-shell $HOME/.config/shell.nix --run "zsh"'
 
-
 ###
 ## Functions
 ###
-
 snap() {
     nap "$@"
     if [[ `git -C "$HOME/.nap" status --porcelain '.'` ]]; then

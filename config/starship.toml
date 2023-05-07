@@ -31,7 +31,7 @@ format = '[ $symbol ${ram} ]($fg:#AAAAAA)'
 
 [custom.hostname]
 when = true
-command = "hostname -A || hostname -s"
+command = "hostname -s || hostname -A"
 symbol = "󰊠"
 format = "[ $symbol $output ](fg:#AAAAAA)"
 

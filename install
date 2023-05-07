@@ -34,21 +34,12 @@ setup_configs() {
     done
 }
 
-# If SPIN is set then just setup nix
-if [ "$SPIN" ]; then
-    echo -e "${BCyan}[Installing nix${NC}]"
-    /bin/sh setup_nix
-    setup_configs
-    echo "home-manager switch -b backup && exec zsh" >> ~/.zlogin
-    exit 0
-else
-    echo -e "${BCyan}[Installing packages${NC}]"
-    case $( uname -s ) in
-    Linux) /bin/sh setup_linux;;
-    Darwin) /bin/sh setup_mac;;
-    *)     echo other;;
-    esac
-    setup_submodules
-    setup_dotfiles
-    setup_configs
-fi
+echo -e "${BCyan}[Installing packages${NC}]"
+case $( uname -s ) in
+Linux) /bin/sh setup_linux;;
+Darwin) /bin/sh setup_mac;;
+*)     echo other;;
+esac
+setup_submodules
+setup_dotfiles
+setup_configs
