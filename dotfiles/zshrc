@@ -67,3 +67,7 @@ reload() {
     source ~/.zprofile
     source ~/.zshrc
 }
+
+awsp() {
+    export AWS_PROFILE=$(aws configure list-profiles | fzf)
+}
