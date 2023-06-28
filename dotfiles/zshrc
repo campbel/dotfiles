@@ -26,7 +26,7 @@ command -v journalctl &> /dev/null && alias jc=journalctl
 command -v bat        &> /dev/null && alias cat=bat
 command -v batcat     &> /dev/null && alias bat=batcat && alias cat=batcat
 command -v podman     &> /dev/null && alias docker=podman
-if command -v colorls &> /dev/null; then 
+if command -v colorls &> /dev/null; then
     alias ls="colorls --dark"
 else
     alias ls="ls --color=always"
@@ -70,4 +70,29 @@ reload() {
 
 awsp() {
     export AWS_PROFILE=$(aws configure list-profiles | fzf)
+}
+
+export CODE_ROOT_FOLDER="$HOME/src/github.com"
+dev() {
+    case $1 in
+        cd)
+            if [[ ! -z $2 && -d "$CODE_ROOT_FOLDER/$2" ]]; then
+                cd "$CODE_ROOT_FOLDER/$2"
+            else
+                dir=$(find $CODE_ROOT_FOLDER -maxdepth 2 -mindepth 2 | cut -c$((${#CODE_ROOT_FOLDER}+2))- | sort | fzf)
+                [[ ! -z $dir ]] && cd "$CODE_ROOT_FOLDER/$dir"
+            fi
+        ;;
+        clone)
+            if [[ ! -z $2 ]]; then
+                if [[ ! -d "$CODE_ROOT_FOLDER/$2" ]]; then
+                    git clone "https://github.com/$2.git" "$CODE_ROOT_FOLDER/$2"
+                fi
+                if [[ -d "$CODE_ROOT_FOLDER/$2" ]]; then
+                    cd "$CODE_ROOT_FOLDER/$2"
+                fi
+            else
+                echo "Usage: dev clone <repo>"
+            fi
+    esac
 }
