@@ -83,6 +83,14 @@ dev() {
                 [[ ! -z $dir ]] && cd "$CODE_ROOT_FOLDER/$dir"
             fi
         ;;
+        code)
+            if [[ ! -z $2 && -d "$CODE_ROOT_FOLDER/$2" ]]; then
+                code "$CODE_ROOT_FOLDER/$2"
+            else
+                dir=$(find $CODE_ROOT_FOLDER -maxdepth 2 -mindepth 2 | cut -c$((${#CODE_ROOT_FOLDER}+2))- | sort | fzf)
+                [[ ! -z $dir ]] && code "$CODE_ROOT_FOLDER/$dir"
+            fi
+        ;;
         clone)
             if [[ ! -z $2 ]]; then
                 if [[ ! -d "$CODE_ROOT_FOLDER/$2" ]]; then
