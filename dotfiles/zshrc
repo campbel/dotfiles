@@ -102,5 +102,9 @@ dev() {
             else
                 echo "Usage: dev clone <repo>"
             fi
+        ;;
+        *)
+            echo "Usage: dev <cd|code|clone>"
+        ;;
     esac
 }
