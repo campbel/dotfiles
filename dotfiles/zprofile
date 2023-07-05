@@ -19,7 +19,11 @@ fi
 
 # set PATH so it includes golang if it exists
 if [ -d "/usr/local/go/bin" ] ; then
-    PATH="/usr/local/go/bin:${PATH}"
+    PATH="/usr/local/go/bin:$PATH"
+fi
+
+if [ -d "$HOME/.rd/bin" ]; then
+    PATH="$HOME/.rd/bin:$PATH"
 fi
 
 export NAP_CONFIG="$HOME/.nap/config.yaml"
