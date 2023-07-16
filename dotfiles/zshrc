@@ -32,6 +32,8 @@ else
     alias ls="ls --color=always"
 fi
 
+CHROME_EXE_PATH="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome"
+alias chrome="$CHROME_EXE_PATH"
 
 if [[ -d ~/.config/spin ]]; then
     command -v kubectl &> /dev/null && alias kprod='kubectl --context "$(cat ~/.config/spin/spin.up.dev/cluster)" -n "$(cat ~/.config/spin/spin.up.dev/namespace)"'
