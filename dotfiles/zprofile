@@ -26,5 +26,9 @@ if [ -d "$HOME/.rd/bin" ]; then
     PATH="$HOME/.rd/bin:$PATH"
 fi
 
+if [ -d "/usr/local/share/dotnet" ]; then
+    PATH="/usr/local/share/dotnet:$PATH"
+fi
+
 export NAP_CONFIG="$HOME/.nap/config.yaml"
 export NAP_HOME="$HOME/.nap"
