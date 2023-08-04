@@ -34,13 +34,13 @@ disabled = false
 disabled = false
 threshold = 90
 symbol = ""
-format = '[ $symbol ${ram} ]($fg:#AAAAAA)'
+format = '[ $symbol ${ram} ]($fg:#FFFFFF)'
 
 [custom.hostname]
 when = true
 command = "hostname -s || hostname -A"
 symbol = "󰊠"
-format = "[ $symbol $output ](fg:#AAAAAA)"
+format = "[ $symbol $output ](fg:#FFFFFF)"
 
 # Disable the blank line at the start of the prompt
 # add_newline = false
