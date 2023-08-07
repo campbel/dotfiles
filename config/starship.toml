@@ -7,13 +7,7 @@ $directory\
 [](fg:#8be9fd bg:#50fa7b)\
 $git_branch\
 $git_status\
-[](fg:#50fa7b bg:#ffb86c)\
-$c\
-$golang\
-$nodejs\
-$rust\
-$ruby\
-[](fg:#ffb86c bg:#ff79c6)\
+[](fg:#50fa7b bg:#ff79c6)\
 $kubernetes\
 [](fg:#ff79c6 bg:#bd93f9)\
 $time\
