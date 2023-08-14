@@ -30,5 +30,7 @@ if [ -d "/usr/local/share/dotnet" ]; then
     PATH="/usr/local/share/dotnet:$PATH"
 fi
 
+command -v pyenv &> /dev/null && PATH=$(pyenv root)/shims:$PATH
+
 export NAP_CONFIG="$HOME/.nap/config.yaml"
 export NAP_HOME="$HOME/.nap"
