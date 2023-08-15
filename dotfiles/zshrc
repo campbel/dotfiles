@@ -61,6 +61,12 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 
 ###
+## Pyenv
+###
+export PYENV_ROOT="$HOME/.pyenv"
+command -v pyenv &> /dev/null && eval "$(pyenv init -)"
+
+###
 ## Functions
 ###
 snap() {
@@ -117,3 +123,4 @@ dev() {
         ;;
     esac
 }
+autoload -U compinit; compinit
