@@ -32,9 +32,6 @@ fi
 
 command -v pyenv &> /dev/null && PATH=$(pyenv root)/shims:$PATH
 
-export NAP_CONFIG="$HOME/.nap/config.yaml"
-export NAP_HOME="$HOME/.nap"
-
 # Added by OrbStack: command-line tools and integration
 if [ -d "~/.orbstack" ]; then
     source ~/.orbstack/shell/init.zsh 2>/dev/null || :
