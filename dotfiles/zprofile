@@ -1,38 +1,22 @@
 
-# set PATH so it includes user's private bin if it exists
-if [ -d "$HOME/bin" ] ; then
-    PATH="$HOME/bin:$PATH"
-fi
+# Function to add a directory to the PATH variable
+add_to_path() {
+    local dir="$1"
+    if [ -d "$dir" ]; then
+        PATH=$(echo $PATH | sed -e "s#:$dir:##g")
+        PATH="$dir:$PATH"
+    fi
+}
 
-if [ -d "$HOME/go/bin" ] ; then
-    PATH="$HOME/go/bin:$PATH"
-fi
-
-if [ -d "$HOME/run/bin" ] ; then
-    PATH="$HOME/run/bin:$PATH"
-fi
-
-# set PATH so it includes user's private bin if it exists
-if [ -d "$HOME/.local/bin" ] ; then
-    PATH="$HOME/.local/bin:$PATH"
-fi
-
-if [ -d "$HOME/.scripts" ] ; then
-    PATH="$HOME/.scripts:$PATH"
-fi
-
-# set PATH so it includes golang if it exists
-if [ -d "/usr/local/go/bin" ] ; then
-    PATH="/usr/local/go/bin:$PATH"
-fi
-
-if [ -d "$HOME/.rd/bin" ]; then
-    PATH="$HOME/.rd/bin:$PATH"
-fi
-
-if [ -d "/usr/local/share/dotnet" ]; then
-    PATH="/usr/local/share/dotnet:$PATH"
-fi
+add_to_path "$HOME/bin"
+add_to_path "$HOME/go/bin"
+add_to_path "$HOME/run/bin"
+add_to_path "$HOME/.local/bin"
+add_to_path "$HOME/.scripts"
+add_to_path "/usr/local/go/bin"
+add_to_path "$HOME/.rd/bin"
+add_to_path "/usr/local/share/dotnet"
+add_to_path "/usr/local/bin"
 
 command -v pyenv &> /dev/null && PATH=$(pyenv root)/shims:$PATH
 
