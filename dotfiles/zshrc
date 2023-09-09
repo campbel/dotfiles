@@ -26,6 +26,7 @@ command -v journalctl &> /dev/null && alias jc=journalctl
 command -v bat        &> /dev/null && alias cat=bat
 command -v batcat     &> /dev/null && alias bat=batcat && alias cat=batcat
 command -v podman     &> /dev/null && alias docker=podman
+command -v bolt       &> /dev/null && alias b=bolt && alias br="bolt run --" && alias up="bolt up"
 if command -v colorls &> /dev/null; then
     alias ls="colorls --dark"
 else
@@ -63,8 +64,8 @@ export NVM_DIR="$HOME/.nvm"
 ###
 ## Pyenv
 ###
-export PYENV_ROOT="$HOME/.pyenv"
-command -v pyenv &> /dev/null && eval "$(pyenv init -)"
+# export PYENV_ROOT="$HOME/.pyenv"
+# command -v pyenv &> /dev/null && eval "$(pyenv init -)"
 
 ###
 ## Functions
