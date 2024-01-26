@@ -123,24 +123,31 @@ function url_encode() {
     fi
 }
 
+launch_code() {
+    folder="$1"
+    cd "$folder"
+    if [[ -f "$folder/bolt.yaml" ]]; then
+        echo "launching code with bolt..."
+        if [[ ! -d "$folder/.bolt" ]]; then
+            bolt up
+        fi
+        bolt exec -- code .
+    else
+        echo "launching code..."
+        code .
+    fi
+}
+
 export CODE_ROOT_FOLDER="$HOME/src/github.com"
 dev() {
     case $1 in
         cd)
-            if [[ ! -z $2 && -d "$CODE_ROOT_FOLDER/$2" ]]; then
-                cd "$CODE_ROOT_FOLDER/$2"
-            else
-                dir=$(find $CODE_ROOT_FOLDER -maxdepth 2 -mindepth 2 | cut -c$((${#CODE_ROOT_FOLDER}+2))- | sort | fzf)
-                [[ ! -z $dir ]] && cd "$CODE_ROOT_FOLDER/$dir"
-            fi
+            dir=$(find $CODE_ROOT_FOLDER -maxdepth 2 -mindepth 2 | cut -c$((${#CODE_ROOT_FOLDER}+2))- | sort | fzf)
+            [[ ! -z $dir ]] && cd "$CODE_ROOT_FOLDER/$dir"
         ;;
         code)
-            if [[ ! -z $2 && -d "$CODE_ROOT_FOLDER/$2" ]]; then
-                code "$CODE_ROOT_FOLDER/$2"
-            else
-                dir=$(find $CODE_ROOT_FOLDER -maxdepth 2 -mindepth 2 | cut -c$((${#CODE_ROOT_FOLDER}+2))- | sort | fzf)
-                [[ ! -z $dir ]] && code "$CODE_ROOT_FOLDER/$dir"
-            fi
+            dir=$(find $CODE_ROOT_FOLDER -maxdepth 2 -mindepth 2 | cut -c$((${#CODE_ROOT_FOLDER}+2))- | sort | fzf)
+            [[ ! -z $dir ]] && launch_code "$CODE_ROOT_FOLDER/$dir"
         ;;
         clone)
             if [[ ! -z $2 ]]; then

@@ -14,10 +14,11 @@ add_to_path "$HOME/run/bin"
 add_to_path "$HOME/.local/bin"
 add_to_path "$HOME/.scripts"
 add_to_path "/usr/local/go/bin"
-add_to_path "$HOME/.rd/bin"
+# add_to_path "$HOME/.rd/bin"
 add_to_path "/usr/local/share/dotnet"
 add_to_path "/usr/local/bin"
 add_to_path "/opt/bolt/bin"
+add_to_path "$HOME/.krew/bin"
 
 # command -v pyenv &> /dev/null && PATH=$(pyenv root)/shims:$PATH
 
