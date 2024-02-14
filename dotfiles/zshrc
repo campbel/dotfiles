@@ -1,7 +1,12 @@
 autoload -U compinit; compinit
 
-export GOROOT="/usr/local/go"
-export GOPATH="$HOME/go"
+if [ -z "$GOROOT" ]; then
+    export GOROOT="/usr/local/go"
+fi
+if [ -z "$GOPATH" ]; then
+    export GOPATH="$HOME/go"
+fi
+
 export KUBECONFIG="$HOME/.kube/config"
 
 [[ -x /opt/homebrew/bin/brew ]] && eval $(/opt/homebrew/bin/brew shellenv)
