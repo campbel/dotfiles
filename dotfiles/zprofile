@@ -20,6 +20,9 @@ add_to_path "/usr/local/bin"
 add_to_path "/opt/bolt/bin"
 add_to_path "$HOME/.krew/bin"
 
+# Bolt Flags
+export BOLT_UPDATE_NOTIFICATIONS_ENABLED="true"
+
 # command -v pyenv &> /dev/null && PATH=$(pyenv root)/shims:$PATH
 
 # Added by OrbStack: command-line tools and integration
