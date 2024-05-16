@@ -131,17 +131,11 @@ function url_encode() {
 
 launch_code() {
     folder="$1"
-    cd "$folder"
-    if [[ -f "$folder/bolt.yaml" ]]; then
-        echo "launching code with bolt..."
-        if [[ ! -d "$folder/.bolt" ]]; then
-            bolt up
-        fi
-        bolt exec -- code .
-    else
-        echo "launching code..."
-        code .
-    fi
+    cur_dir=$(pwd)
+    cd $folder
+    echo "launching code..."
+    code .
+    cd $cur_dir
 }
 
 export CODE_ROOT_FOLDER="$HOME/src/github.com"
