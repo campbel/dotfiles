@@ -32,7 +32,8 @@ command -v journalctl &> /dev/null && alias jc=journalctl
 command -v bat        &> /dev/null && alias cat=bat
 command -v batcat     &> /dev/null && alias bat=batcat && alias cat=batcat
 command -v podman     &> /dev/null && alias docker=podman
-command -v bolt       &> /dev/null && alias b=bolt && alias br="bolt run --" && alias up="bolt up"
+command -v bolt       &> /dev/null && alias b=bolt && alias bx="bolt exec --" && alias up="bolt up"
+command -v gum        &> /dev/null && alias fzf="gum filter"
 if command -v colorls &> /dev/null; then
     alias ls="colorls --dark"
 else
@@ -63,9 +64,9 @@ command -v nix-shell &> /dev/null && alias nixify='nix-shell $HOME/.config/shell
 ###
 ## NVM
 ###
-export NVM_DIR="$HOME/.nvm"
-[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
-[ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+# export NVM_DIR="$HOME/.nvm"
+# [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
+# [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 
 ###
 ## Pyenv
