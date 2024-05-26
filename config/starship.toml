@@ -4,6 +4,7 @@ $os\
 $username\
 [](bg:#8be9fd fg:#6272a4)\
 $directory\
+$direnv\
 [](fg:#8be9fd bg:#50fa7b)\
 $git_branch\
 $git_status\
@@ -13,7 +14,7 @@ $kubernetes\
 $time\
 [ ](fg:#bd93f9)\
 $line_break\
-[❯ ](fg:#ff5555)\
+[❯ ](fg:#AAAAAA)\
 """
 
 # right_format = """
@@ -86,7 +87,7 @@ format = '[ $symbol ($version) ]($style)'
 
 [kubernetes]
 disabled = false
-symbol = "☸ "
+symbol = "☸"
 style = "bg:#ff79c6"
 format = '[ $symbol $context ]($style)'
 
@@ -129,3 +130,14 @@ disabled = false
 time_format = "%R" # Hour:Minute Format
 style = "bg:#bd93f9"
 format = '[ $time ]($style)'
+
+[direnv]
+disabled = false
+format = '[$loaded/$allowed ]($style)'
+symbol = ""
+allowed_msg = "a"
+not_allowed_msg = "n"
+denied_msg = "d"
+loaded_msg = "↺"
+unloaded_msg = "×"
+style = "bg:#8be9fd fg:#6272a4"
