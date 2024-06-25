@@ -8,6 +8,9 @@ brew install \
     git \
     zsh \
     neovim \
+    ripgrep \
+    fzf \
+    lazygit \
     starship
 
 brew install --cask font-fira-code-nerd-font
