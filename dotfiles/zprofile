@@ -19,6 +19,7 @@ add_to_path "/usr/local/share/dotnet"
 add_to_path "/usr/local/bin"
 add_to_path "/opt/bolt/bin"
 add_to_path "$HOME/.krew/bin"
+add_to_path "/opt/homebrew/opt/mysql-client/bin"
 
 # Bolt Flags
 export BOLT_UPDATE_NOTIFICATIONS_ENABLED="true"
