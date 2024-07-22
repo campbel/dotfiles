@@ -43,11 +43,6 @@ fi
 CHROME_EXE_PATH="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome"
 alias chrome="$CHROME_EXE_PATH"
 
-if [[ -d ~/.config/spin ]]; then
-    command -v kubectl &> /dev/null && alias kprod='kubectl --context "$(cat ~/.config/spin/spin.up.dev/cluster)" -n "$(cat ~/.config/spin/spin.up.dev/namespace)"'
-    command -v kubectl &> /dev/null && alias kdev='kubectl --context "$(cat ~/.config/spin/localhost/cluster)" -n "$(cat ~/.config/spin/localhost/namespace)"'
-fi
-
 if [[ -d ~/.krew ]]; then
     export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 fi
