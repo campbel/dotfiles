@@ -3,7 +3,6 @@
 add_to_path() {
     local dir="$1"
     if [ -d "$dir" ]; then
-        PATH=$(echo $PATH | sed -e "s#:$dir:##g")
         PATH="$dir:$PATH"
     fi
 }
