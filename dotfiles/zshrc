@@ -34,6 +34,7 @@ command -v batcat     &> /dev/null && alias bat=batcat && alias cat=batcat
 command -v podman     &> /dev/null && alias docker=podman
 command -v bolt       &> /dev/null && alias b=bolt && alias bx="bolt exec --" && alias up="bolt up"
 command -v gum        &> /dev/null && alias fzf="gum filter"
+command -v nvim       &> /dev/null && alias vim=nvim && alias n=nvim
 if command -v colorls &> /dev/null; then
     alias ls="colorls --dark"
 else
