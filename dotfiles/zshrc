@@ -1,5 +1,8 @@
 autoload -U compinit; compinit
 
+###
+## Golang
+###
 if [ -z "$GOROOT" ]; then
     export GOROOT="/usr/local/go"
 fi
@@ -7,19 +10,32 @@ if [ -z "$GOPATH" ]; then
     export GOPATH="$HOME/go"
 fi
 
+###
+## Kubernetes
+###
 export KUBECONFIG="$HOME/.kube/config"
+[[ -d ~/.kube ]] && for file in ~/.kube/*; do [[ $file = ~/.kube/config* ]] && export KUBECONFIG="${KUBECONFIG}:${file}"; done
+command -v kubectl  &> /dev/null && source <(kubectl completion zsh)
 
+###
+## General
+###
 [[ -x /opt/homebrew/bin/brew ]] && eval $(/opt/homebrew/bin/brew shellenv)
 command -v starship &> /dev/null && eval   "$(starship init zsh)"
-command -v kubectl  &> /dev/null && source <(kubectl completion zsh)
 command -v direnv &> /dev/null && eval "$(direnv hook zsh)"
 [[ -f /opt/dev/sh/chruby/chruby.sh ]] && { type chruby >/dev/null 2>&1 || chruby () { source /opt/dev/sh/chruby/chruby.sh; chruby "$@"; } }
-[[ -d ~/.kube ]] && for file in ~/.kube/*; do [[ $file = ~/.kube/config* ]] && export KUBECONFIG="${KUBECONFIG}:${file}"; done
 [[ -f ~/.zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh ]] && source ~/.zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 [[ -f ~/.zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]] && source ~/.zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 command -v dircolors &> /dev/null && eval "$(dircolors $HOME/.dircolors)"
 
 export EDITOR="code -w"
+
+CHROME_EXE_PATH="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome"
+alias chrome="$CHROME_EXE_PATH"
+
+if [[ -d ~/.krew ]]; then
+    export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
+fi
 
 ###
 ## Aliases
@@ -41,12 +57,6 @@ else
     alias ls="ls --color=always"
 fi
 
-CHROME_EXE_PATH="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome"
-alias chrome="$CHROME_EXE_PATH"
-
-if [[ -d ~/.krew ]]; then
-    export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
-fi
 
 ###
 ## Nix
