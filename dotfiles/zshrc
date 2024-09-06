@@ -180,3 +180,7 @@ awsgb() {
     export AWS_SECRET_ACCESS_KEY=$(echo $TOKEN | jq -r .Credentials.SecretAccessKey)
     export AWS_SESSION_TOKEN=$(echo $TOKEN | jq -r .Credentials.SessionToken)
 }
+
+trigger() {
+    git commit --allow-empty -m "empty" && git push
+}
