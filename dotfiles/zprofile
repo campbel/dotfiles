@@ -1,5 +1,12 @@
 
-# Function to add a directory to the PATH variable
+###
+## Standard Environment Variables
+###
+export XDG_CONFIG_HOME="$HOME/.config"
+
+###
+## Custom Path Setup
+###
 add_to_path() {
     local dir="$1"
     if [ -d "$dir" ]; then
@@ -20,12 +27,11 @@ add_to_path "/opt/bolt/bin"
 add_to_path "$HOME/.krew/bin"
 add_to_path "/opt/homebrew/opt/mysql-client/bin"
 
-# Bolt Flags
+###
+## Other...
+###
 export BOLT_UPDATE_NOTIFICATIONS_ENABLED="true"
-
-# command -v pyenv &> /dev/null && PATH=$(pyenv root)/shims:$PATH
-
-# Added by OrbStack: command-line tools and integration
 if [ -d "~/.orbstack" ]; then
     source ~/.orbstack/shell/init.zsh 2>/dev/null || :
 fi
+
