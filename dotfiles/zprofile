@@ -3,6 +3,8 @@
 ## Standard Environment Variables
 ###
 export XDG_CONFIG_HOME="$HOME/.config"
+export TERM=xterm-256color
+export KUBE_EDITOR="nvim"
 
 ###
 ## Custom Path Setup
@@ -26,7 +28,7 @@ add_to_path "/usr/local/bin"
 add_to_path "/opt/bolt/bin"
 add_to_path "$HOME/.krew/bin"
 add_to_path "/opt/homebrew/opt/mysql-client/bin"
-
+add_to_path "$HOME/.linkerd2/bin"
 ###
 ## Other...
 ###
