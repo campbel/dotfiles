@@ -49,6 +49,7 @@ command -v batcat     &> /dev/null && alias bat=batcat && alias cat=batcat
 command -v bolt       &> /dev/null && alias b=bolt && alias bx="bolt exec --" && alias up="bolt up"
 command -v gum        &> /dev/null && alias fzf="gum filter"
 command -v nvim       &> /dev/null && alias vim=nvim && alias n=nvim
+command -v cursor     &> /dev/null && alias code=cursor
 if command -v colorls &> /dev/null; then
     alias ls="colorls --dark"
 else
@@ -149,6 +150,8 @@ launch_code() {
 }
 
 export CODE_ROOT_FOLDER="$HOME/src/github.com"
+export WORKSPACE_ROOT_FOLDER="$HOME/workspaces"
+
 dev() {
     case $1 in
         cd)
@@ -171,8 +174,12 @@ dev() {
                 echo "Usage: dev clone <repo>"
             fi
         ;;
+        app)
+            workspace=$(gum file $WORKSPACE_ROOT_FOLDER) || return 0
+            code $workspace
+        ;;
         *)
-            echo "Usage: dev <cd|code|clone>"
+            echo "Usage: dev <cd|code|clone|app>"
         ;;
     esac
 }
