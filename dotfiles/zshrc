@@ -49,7 +49,6 @@ command -v batcat     &> /dev/null && alias bat=batcat && alias cat=batcat
 command -v bolt       &> /dev/null && alias b=bolt && alias bx="bolt exec --" && alias up="bolt up"
 command -v gum        &> /dev/null && alias fzf="gum filter"
 command -v nvim       &> /dev/null && alias vim=nvim && alias n=nvim
-command -v cursor     &> /dev/null && alias code=cursor
 if command -v colorls &> /dev/null; then
     alias ls="colorls --dark"
 else
@@ -195,3 +194,6 @@ awsgb() {
 trigger() {
     git commit --allow-empty -m "empty" && git push
 }
+
+# Added by Windsurf
+export PATH="/Users/campbel/.codeium/windsurf/bin:$PATH"
