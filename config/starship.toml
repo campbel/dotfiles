@@ -1,143 +1,160 @@
 format = """
-[](#6272a4)\
-$os\
-$username\
-[](bg:#8be9fd fg:#6272a4)\
+[](#8be9fd)\
+[](#8be9fd)\
 $directory\
-$direnv\
-[](fg:#8be9fd bg:#50fa7b)\
+[](bg:#50fa7b fg:#8be9fd)\
 $git_branch\
 $git_status\
-[](fg:#50fa7b bg:#ff79c6)\
+[](bg:#bd93f9 fg:#50fa7b)\
 $kubernetes\
-[](fg:#ff79c6 bg:#bd93f9)\
-$time\
+$aws\
+[](bg:#ffb86c fg:#bd93f9)\
+$golang\
+$nodejs\
+$direnv\
 [ ](fg:#bd93f9)\
+[ ](fg:#ffb86c)\
+$cmd_duration\
 $line_break\
-[❯ ](fg:#AAAAAA)\
+$character\
 """
 
-# right_format = """
-# $memory_usage\
-# ${custom.hostname}\
-# """
-
-[line_break]
-disabled = false
-
-[memory_usage]
-disabled = false
-threshold = 90
-symbol = ""
-format = '[ $symbol ${ram} ]($fg:#FFFFFF)'
-
-[custom.hostname]
-when = true
-command = "hostname -s || hostname -A"
-symbol = "󰊠"
-format = "[ $symbol $output ](fg:#FFFFFF)"
-
 # Disable the blank line at the start of the prompt
-# add_newline = false
-
-# You can also replace your username with a neat symbol like   or disable this
-# and use the os module below
-[username]
-show_always = true
-style_user = "bg:#6272a4"
-style_root = "bg:#6272a4"
-format = '[$user ]($style)'
-disabled = false
-
-[hostname]
-ssh_only = false
-style = "bg:#6272a4"
-format = '[$hostname ]($style)'
-trim_at = ''
-
-# An alternative to the username module which displays a symbol that
-# represents the current operating system
-[os]
-style = "bg:#6272a4"
-disabled = true # Disabled by default
+add_newline = false
 
 [directory]
-style = "bg:#8be9fd"
+style = "bg:#8be9fd fg:#000000"
 format = "[ $path ]($style)"
 truncation_length = 3
 truncation_symbol = "…/"
+read_only = " 🔒"
 
-# Here is how you can shorten some long paths by text replacement
-# similar to mapped_locations in Oh My Posh:
 [directory.substitutions]
-"Documents" = " "
-"Downloads" = " "
-"Music" = " "
-"Pictures" = " "
-# Keep in mind that the order matters. For example:
-# "Important Documents" = "  "
-# will not be replaced, because "Documents" was already substituted before.
-# So either put "Important Documents" before "Documents" or use the substituted version:
-# "Important  " = "  "
+"Documents" = " "
+"Downloads" = " "
+"Music" = " "
+"Pictures" = " "
 
-[c]
-symbol = " "
-style = "bg:#ffb86c"
-format = '[ $symbol ($version) ]($style)'
+[git_branch]
+symbol = " "
+style = "bg:#50fa7b fg:#000000"
+format = "[ $symbol$branch ]($style)"
+
+[git_status]
+style = "bg:#50fa7b fg:#000000"
+format = "[$all_status$ahead_behind ]($style)"
+conflicted = "⚡"
+ahead = "⇡"
+behind = "⇣"
+diverged = "⇕"
+up_to_date = ""
+untracked = "?"
+stashed = "$"
+modified = "!"
+staged = "+"
+renamed = "»"
+deleted = "✘"
 
 [kubernetes]
 disabled = false
-symbol = "☸"
-style = "bg:#ff79c6"
-format = '[ $symbol $context ]($style)'
+symbol = ""
+style = "bg:#bd93f9 fg:#000000"
+format = "[ $context ]($style)"
+[kubernetes.context_aliases]
+"dev.local.cluster.k8s" = "dev"
+"production" = "prod"
 
-[docker_context]
-symbol = " "
-style = "bg:#ff79c6"
-format = '[ $symbol $context ]($style) $path'
-
-[git_branch]
-symbol = ""
-style = "bg:#50fa7b"
-format = '[ $symbol $branch ]($style)'
-
-[git_status]
-style = "bg:#50fa7b"
-format = '[$all_status$ahead_behind ]($style)'
+[aws]
+symbol = "☁️ "
+style = "bg:#bd93f9 fg:#000000"
+format = "[ $symbol$profile ]($style)"
 
 [golang]
-symbol = " "
-style = "bg:#ffb86c"
-format = '[ $symbol ($version) ]($style)'
-
-[ruby]
-symbol = " "
-style = "bg:#ffb86c"
-format = '[ $symbol ($version) ]($style)'
+symbol = " "
+style = "bg:#ffb86c fg:#000000"
+format = "[ $symbol$version ]($style)"
 
 [nodejs]
-symbol = ""
-style = "bg:#ffb86c"
-format = '[ $symbol ($version) ]($style)'
+symbol = " "
+style = "bg:#ffb86c fg:#000000"
+format = "[ $symbol$version ]($style)"
 
-[rust]
-symbol = ""
-style = "bg:#ffb86c"
-format = '[ $symbol ($version) ]($style)'
+[python]
+symbol = " "
+style = "bg:#ffb86c fg:#000000"
+format = "[ $symbol$version ]($style)"
 
-[time]
-disabled = false
-time_format = "%R" # Hour:Minute Format
-style = "bg:#bd93f9"
-format = '[ $time ]($style)'
+[docker_context]
+symbol = " "
+style = "bg:#ffb86c fg:#000000"
+format = "[ $symbol$context ]($style)"
 
 [direnv]
 disabled = false
-format = '[$loaded/$allowed ]($style)'
-symbol = ""
-allowed_msg = "a"
-not_allowed_msg = "n"
-denied_msg = "d"
-loaded_msg = "↺"
-unloaded_msg = "×"
-style = "bg:#8be9fd fg:#6272a4"
+format = "[ $loaded ]($style)"
+symbol = "direnv"
+allowed_msg = "✓"
+not_allowed_msg = "✗"
+denied_msg = "✗"
+loaded_msg = "✓"
+unloaded_msg = "✗"
+style = "bg:#ffb86c fg:#000000"
+
+[cmd_duration]
+min_time = 2_000
+format = " [$duration]($style)"
+style = "bold yellow"
+
+[character]
+success_symbol = "[❯](bold green)"
+error_symbol = "[❯](bold red)"
+vimcmd_symbol = "[❮](bold green)"
+
+# Additional useful modules you might want to enable
+[memory_usage]
+disabled = true
+threshold = 90
+symbol = "🐏 "
+format = "[$symbol$ram]($style) "
+style = "bold dimmed white"
+
+[battery]
+disabled = true
+full_symbol = "🔋"
+charging_symbol = "🔌"
+discharging_symbol = "💀"
+
+[[battery.display]]
+threshold = 30
+style = "bold red"
+
+[status]
+disabled = true
+symbol = "🔴"
+format = "[$symbol$status]($style) "
+style = "bold red"
+
+# Remove unused modules
+[line_break]
+disabled = false
+
+[username]
+disabled = true
+
+[hostname]
+disabled = true
+
+[time]
+disabled = true
+
+[os]
+disabled = true
+
+[c]
+disabled = true
+
+[ruby]
+disabled = true
+
+[rust]
+disabled = true

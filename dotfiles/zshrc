@@ -196,7 +196,7 @@ trigger() {
 }
 
 q() {
-    claude --allowedTools "Fetch(*) Bash(*)" --print "$1"
+    claude --print "$1"
 }
 
 # Added by Windsurf
