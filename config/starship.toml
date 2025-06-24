@@ -7,11 +7,6 @@ $git_branch\
 $git_status\
 [](bg:#bd93f9 fg:#50fa7b)\
 $kubernetes\
-$aws\
-[](bg:#ffb86c fg:#bd93f9)\
-$golang\
-$nodejs\
-$direnv\
 [ ](fg:#bd93f9)\
 [ ](fg:#ffb86c)\
 $cmd_duration\
