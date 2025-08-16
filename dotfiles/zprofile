@@ -30,6 +30,7 @@ add_to_path "/opt/bolt/bin"
 add_to_path "$HOME/.krew/bin"
 add_to_path "/opt/homebrew/opt/mysql-client/bin"
 add_to_path "$HOME/.linkerd2/bin"
+add_to_path "$HOME/.slack/bin"
 ###
 ## Other...
 ###
