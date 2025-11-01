@@ -6,6 +6,8 @@ export XDG_CONFIG_HOME="$HOME/.config"
 export TERM=xterm-256color
 export KUBE_EDITOR="nvim"
 export GITHUB_USERNAME="campbel"
+export DOTFILES_REPO="https://github.com/campbel/dotfiles.git"
+export DOTFILES_INSTALL_SCRIPT="install"
 
 ###
 ## Custom Path Setup
