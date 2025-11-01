@@ -5,10 +5,7 @@ BCyan='\033[1;36m'
 BGreen='\033[1;32m'
 BBlue='\033[1;34m'
 
-DOTFILES_DIR=~/src/github.com/campbel/dotfiles
-if [ "$SPIN" ]; then
-    DOTFILES_DIR=~/dotfiles
-fi
+DOTFILES_DIR=${DOTFILES_DIR:-~/src/github.com/campbel/dotfiles}
 
 setup_submodules() {
     echo -e "${BCyan}[Installing submodules]${NC}"
