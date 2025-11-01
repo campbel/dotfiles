@@ -2,9 +2,24 @@
 
 echo "Setting up Linux"
 
-sudo apt update -y
-sudo apt upgrade -y
-sudo apt install -y \
+# Determine if we need sudo or if it's available
+SUDO=""
+if [[ $EUID -ne 0 ]]; then
+    if command -v sudo >/dev/null 2>&1; then
+        SUDO="sudo"
+        echo "Using sudo for elevated privileges"
+    else
+        echo "Warning: Not running as root and sudo not available. Some commands may fail."
+        echo "Please run as root or install sudo."
+        exit 1
+    fi
+else
+    echo "Running as root, sudo not needed"
+fi
+
+$SUDO apt update -y
+$SUDO apt upgrade -y
+$SUDO apt install -y \
     zsh \
     vim \
     curl \
@@ -13,11 +28,11 @@ sudo apt install -y \
     ruby \
     bat
 
-sudo /bin/sh starship/install.sh -y
+$SUDO /bin/sh starship/install.sh -y
 chsh -s /usr/bin/zsh
 
-sudo gem install colorls
+$SUDO gem install colorls
 
 # Firacode
-sudo add-apt-repository universe
-sudo apt install fonts-firacode
+$SUDO add-apt-repository universe
+$SUDO apt install fonts-firacode
