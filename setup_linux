@@ -4,7 +4,7 @@ echo "Setting up Linux"
 
 # Determine if we need sudo or if it's available
 SUDO=""
-if [[ $EUID -ne 0 ]]; then
+if [ "$EUID" -ne 0 ]; then
     if command -v sudo >/dev/null 2>&1; then
         SUDO="sudo"
         echo "Using sudo for elevated privileges"
