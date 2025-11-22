@@ -56,3 +56,7 @@ echo "Installing FiraCode fonts..."
 $SUDO add-apt-repository -y universe
 $SUDO apt update -y
 $SUDO apt install -y fonts-firacode
+
+# Install Claude Native
+echo "Installing Claude Native..."
+curl -fsSL https://claude.ai/install.sh | $SUDO bash

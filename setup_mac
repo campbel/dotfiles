@@ -14,5 +14,6 @@ brew install \
     starship
 
 brew install --cask font-fira-code-nerd-font
+brew install --cask claude-code
 
 sudo gem install colorls
