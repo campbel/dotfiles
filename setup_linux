@@ -44,7 +44,7 @@ fi
 # Change shell to zsh
 if [ "$SHELL" != "$(which zsh)" ]; then
     echo "Changing shell to zsh..."
-    chsh -s "$(which zsh)"
+    $SUDO chsh -s "$(which zsh)" "${USER:-$(whoami)}"
 fi
 
 # Install colorls
