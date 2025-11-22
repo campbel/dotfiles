@@ -1,6 +1,7 @@
 format = """
-[](#8be9fd)\
-[](#8be9fd)\
+[](#ff79c6)\
+$os\
+[](bg:#8be9fd fg:#ff79c6)\
 $directory\
 [](bg:#50fa7b fg:#8be9fd)\
 $git_branch\
@@ -143,7 +144,30 @@ disabled = true
 disabled = true
 
 [os]
-disabled = true
+disabled = false
+style = "bg:#ff79c6 fg:#000000"
+format = "[$symbol]($style)"
+
+[os.symbols]
+Windows = " "
+Ubuntu = " "
+SUSE = " "
+Raspbian = " "
+Mint = " "
+Macos = " "
+Manjaro = " "
+Linux = " "
+Gentoo = " "
+Fedora = " "
+Alpine = " "
+Amazon = " "
+Android = " "
+Arch = " "
+Artix = " "
+CentOS = " "
+Debian = " "
+Redhat = " "
+RedHatEnterprise = " "
 
 [c]
 disabled = true
