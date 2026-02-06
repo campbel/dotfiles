@@ -174,12 +174,12 @@ dev() {
                 echo "Usage: dev clone <repo>"
             fi
         ;;
-        app)
-            workspace=$(gum file $WORKSPACE_ROOT_FOLDER) || return 0
-            code $workspace
+        work)
+            selected=$(ls "$WORKSPACE_ROOT_FOLDER"/*.code-workspace 2>/dev/null | xargs -n1 basename | sed 's/\.code-workspace$//' | fzf) || return 0
+            cursor "$WORKSPACE_ROOT_FOLDER/$selected.code-workspace"
         ;;
         *)
-            echo "Usage: dev <cd|code|clone|app>"
+            echo "Usage: dev <cd|code|clone|work>"
         ;;
     esac
 }
@@ -202,3 +202,12 @@ q() {
 
 # Added by Windsurf
 export PATH="/Users/campbel/.codeium/windsurf/bin:$PATH"
+# Added by dbt Fusion extension (ensure dbt binary dir on PATH)
+if [[ ":$PATH:" != *":/Users/campbel/.local/bin:"* ]]; then
+  export PATH=/Users/campbel/.local/bin:"$PATH"
+fi
+# Added by dbt Fusion extension
+alias dbtf=/Users/campbel/.local/bin/dbt
+
+# Added by Antigravity
+export PATH="/Users/campbel/.antigravity/antigravity/bin:$PATH"
