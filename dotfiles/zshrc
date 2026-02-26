@@ -149,7 +149,7 @@ launch_code() {
     cd $cur_dir
 }
 
-export CODE_ROOT_FOLDER="$HOME/src/github.com"
+export CODE_ROOT_FOLDER="$HOME/code/github.com"
 export WORKSPACE_ROOT_FOLDER="$HOME/workspaces"
 
 dev() {
